@@ -2,8 +2,8 @@
 
 #ifndef queue_h
 #define queue_h
-#include "boolean.h"
-#include "linked.h"
+#include "..\adt-linked-list\BOOLEAN.H"
+#include "..\adt-linked-list\SpNRSLL.H"
 #define NBElement 10
 
 typedef List Queue;
