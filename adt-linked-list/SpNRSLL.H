@@ -21,6 +21,12 @@ typedef struct tElmtList {
 	 address  next;
 	 } ElmtList;
 
+typedef struct {
+	  address Front;
+	  address Rear;
+} ListQueue;
+
+
 /* Definisi list : */
 /* List kosong ===> First(L) = Nil */
 /* Setiap elemen dengan address P dapat diacu info(P) dan Next(P);  */

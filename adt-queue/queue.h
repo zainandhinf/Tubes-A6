@@ -6,7 +6,7 @@
 #include "..\adt-linked-list\SpNRSLL.H"
 #define NBElement 10
 
-typedef List Queue;
+typedef ListQueue Queue;
 
 /*Membuat sebuah queue baru dengan Front dan Rear NULL*/
 void CreateQueue (Queue *Q);
