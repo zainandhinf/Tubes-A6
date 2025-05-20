@@ -6,8 +6,8 @@
 #ifndef stack_H
 #define stack_H
 #define First(S) (S).First
-#include "..\adt-linked-list\BOOLEAN.H"
-#include "..\adt-linked-list\SpNRSLL.H"
+#include "BOOLEAN.H"
+#include "SpNRSLL.H"
 
 /* Null adalah stack dengan elemen kosong. */
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP bertype address (Head)*/

@@ -2,9 +2,9 @@
 #define UNO_H
 
 #include <stdio.h>
-#include "adt-queue/queue.h"
-#include "adt-stack/STACK.h"
-#include "adt-linked-list/SpNRSLL.h"
+#include "queue.h"
+#include "STACK.h"
+#include "SpNRSLL.h"
 
 typedef enum {
     MERAH,
