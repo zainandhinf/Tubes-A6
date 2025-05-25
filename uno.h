@@ -51,20 +51,7 @@ typedef Kartu infotype;
 //     struct Pemain *next;
 // } Pemain;
 
-// Fungsi untuk menginisialisasi deck kartu
-// dengan 108 kartu UNO
-// 76 kart u angka (0-9) dari 4 warna
-// 8 kartu SKIP dari 4 warna
-// 8 kartu REVERSE dari 4 warna
-// 8 kartu DRAW2 dari 4 warna
-// 4 kartu WILD
-// 4 kartu WILD DRAW4
-// void ShuffleDeck(List *deck);
-// // Fungsi untuk mengacak urutan kartu dalam deck
-// infotype DrawCard(List *deck);
-// // Fungsi untuk menarik kartu dari deck jika tidak yang di mainin
-// void AddCardToDeck(List *deck, infotype kartu);
-// // Fungsi untuk menambah kartu ke deck
+
 // void InitGiliran(Queue *q, int jumlahPemain);
 // // Fungsi untuk menginisialisasi giliran pemain
 // // dengan memasukkan pemain ke dalam queue
@@ -72,14 +59,7 @@ typedef Kartu infotype;
 // // fungsi untuk mengubah giliran pemain
 // int CurrentPlayer(Queue q);
 // // Fungsi untuk mendapatkan pemain yang sedang bermain dari queue
-// void InitDiscard(Stack *s);
-// // Fungsi untuk menginisialisasi  stack kartu yang dimainin
-// void PushDiscard(Stack *s, infotype kartu);
-// // Fungsi untuk menambah kartu ke stack kartu yang dimainin
-// infotype TopDiscard(Stack s);
-// // fungsi untuk melihat kartu yang ada di atas stack kartu yang dimainin
-// infotype PopDiscard(Stack *s);
-// // fungsi untuk mengeluarkan kartu dari stack untuk undo
+
 // void CreatePlayerList(Player **head);
 // // Fungsi untuk membuat list pemain
 // Player *AlokasiPlayer(const char *nama);
