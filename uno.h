@@ -86,13 +86,13 @@ typedef Kartu infotype;
 // // Fungsi untuk mengalokasi memori untuk pemain baru
 // void DealokasiPlayer(Player *P);
 // // Fungsi untuk dealokasi memori pemain jika sudah tidak digunakan
-// int PlayerListEmpty(Player *head);
+// boolean PlayerListEmpty(Player *head);
 // // Fungsi untuk mengecek apakah list pemain kosong atau tidak
 // void InsertPlayerFirst(Player **head, Player *P);
 // // Fungsi untuk menambah pemain ke list pemain
 // Player *SearchPlayer(Player *head, const char *nama);
 // // Fungsi untuk mencari pemain dalam list pemain
-// int DeletePlayer(Player **head, const char *nama);
+// void DeletePlayer(Player **head, const char *nama);
 // // Fungsi untuk menghapus pemain dari list pemain
 // void PrintPlayerList(Player *head);
 // // Fungsi untuk mencetak list pemain
@@ -100,13 +100,13 @@ typedef Kartu infotype;
 // // Fungsi untuk mengalokasi memori untuk kartu baru
 // void DealokasiKartu(KartuList *P);
 // // Fungsi untuk dealokasi memori kartu jika sudah tidak digunakan
-// int KartuListEmpty(KartuList *head);
+// boolean KartuListEmpty(KartuList *head);
 // // Fungsi untuk mengecek apakah list kartu kosong atau tidak
 // void InsertKartuFirst(KartuList **head, KartuList *P);
 // // Fungsi untuk menambah kartu ke list kartu
 // void InsertKartuLast(KartuList **head, KartuList *P);
 // // Fungsi untuk menambah kartu ke list kartu
-// int DeleteKartu(KartuList **head, Kartu kartu);
+// void DeleteKartu(KartuList **head, Kartu kartu);
 // // Fungsi untuk menghapus kartu dari list kartu
 // int CountKartu(KartuList *head);
 // // Fungsi untuk menghitung jumlah kartu dalam list kartu
