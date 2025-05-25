@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "sll.H": "cpp",
+        "boolean.h": "c",
+        "BOOLEAN.H": "cpp"
+    }
+}

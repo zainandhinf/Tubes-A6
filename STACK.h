@@ -5,9 +5,10 @@
 
 #ifndef stack_H
 #define stack_H
-#define First(S) (S).First
+#define StackFirst(S) (S).First
 #include "BOOLEAN.H"
-#include "SpNRSLL.H"
+#include "sll.h"
+#include "uno.h"
 
 /* Null adalah stack dengan elemen kosong. */
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP bertype address (Head)*/

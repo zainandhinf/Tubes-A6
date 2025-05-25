@@ -1,10 +1,15 @@
 CC=gcc
+OUTPUT_DIR=out
+EXECUTABLE=$OUTPUT_DIR/main.exe
 
-$CC -o out/main.exe *.c
+mkdir -p $OUTPUT_DIR
+
+$CC -o $EXECUTABLE main.c sll.c kartu.c queue.c stack.c uno.c
 
 if [ $? -eq 0 ]; then
     echo "Compilation successful. Running the program..."
-    ./out/main.exe
+    ./$EXECUTABLE
 else
-    echo "Compilation failed."
+    echo "Compilation failed. See errors above."
+    exit 1
 fi

@@ -1,6 +1,10 @@
 #include <stdio.h>
+#include "sll.h"
 
 int main(){
-    printf("Hello World!");
+    List kartu;
+    InitKartu(&kartu);
+
+    PrintInfo(kartu);
     return 0;
 }
