@@ -3,6 +3,7 @@
 #include "boolean.h"
 #include "sll.h"
 #include "stack.h"
+#include "kartu.h"
 
 void InitDeck(List *deck);
 // Fungsi untuk menginisialisasi deck kartu

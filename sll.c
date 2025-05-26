@@ -7,6 +7,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include "sll.h"
+#include "kartu.h"
 
 /********** BODY SUB PROGRAM ***********/
 /**** Predikat untuk test keadaan LIST  ****/
