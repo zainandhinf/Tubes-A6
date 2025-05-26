@@ -5,7 +5,7 @@
 #include "stack.h"
 #include "kartu.h"
 
-void InitDeck(List *deck);
+void InitDeck(Stack *deck);
 // Fungsi untuk menginisialisasi deck kartu
 // dengan 108 kartu UNO
 // 76 kart u angka (0-9) dari 4 warna

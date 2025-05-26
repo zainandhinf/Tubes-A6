@@ -3,9 +3,18 @@
 #include <time.h>
 #include "deck.h"
 
-void InitDeck(List *deck) {
-    InitKartu(deck);
-    ShuffleDeck(deck);
+void InitDeck(Stack *deck) {
+    List kartu;
+    InitKartu(&kartu);
+    ShuffleDeck(&kartu);
+
+    CreateEmpty(deck);
+
+    address p = First(kartu);
+    while (p != Nil) {
+        Push(deck, Info(p));
+        p = Next(p);
+    }
 }
 
 void ShuffleDeck(List *deck) {

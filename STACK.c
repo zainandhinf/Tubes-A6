@@ -76,17 +76,68 @@ void Pop (Stack *S, infotype *X)
 }
 
 // modul tambahan untuk melihat isi stack
-void PrintStack(Stack S) {
+void PrintStack(Stack S) 
+/* IS : S mungkin kosong */
+/* FS : Jika stack tidak kosong, semua info yang disimpan pada elemen stack
+        diprint dari atas ke bawah. Jika kosong, menuliskan "Stack Kosong" */
+{
     if (IsEmpty(S)) {
-        printf("Stack kosong.\n");
+        printf("Stack Kosong\n");
     } else {
-        printf("Isi Stack (dari atas ke bawah): ");
-        Stack temp = S; 
-        while (temp != NULL) {
-            printf("%d ", Info(temp));
-            temp = Next(temp);
+        Stack P = S;
+        while (P != NULL) {
+            Kartu k = Info(P);
+            printf("Kartu: ");
+
+            switch (k.jenis) {
+                case ANGKA:
+                    printf("%d ", k.angka);
+                    break;
+                case SKIP:
+                    printf("SKIP ");
+                    break;
+                case REVERSE:
+                    printf("REVERSE ");
+                    break;
+                case DRAW2:
+                    printf("DRAW 2 ");
+                    break;
+                case WILD:
+                    printf("WILD ");
+                    break;
+                case WILD_DRAW4:
+                    printf("WILD DRAW 4 ");
+                    break;
+                default:
+                    printf("UNKNOWN ");
+                    break;
+            }
+
+            switch (k.warna) {
+                case MERAH:
+                    printf("[MERAH]");
+                    break;
+                case HIJAU:
+                    printf("[HIJAU]");
+                    break;
+                case BIRU:
+                    printf("[BIRU]");
+                    break;
+                case KUNING:
+                    printf("[KUNING]");
+                    break;
+                case HITAM:
+                    printf("[HITAM]");
+                    break;
+                default:
+                    printf("[UNKNOWN]");
+                    break;
+            }
+
+            printf("\n");
+            P = Next(P);
         }
-        printf("\n");
+        printf("NIL\n");
     }
 }
 

@@ -9,9 +9,9 @@ int main(){
     // Seed random
     srand(time(NULL));
 
-    List kartu;
-    InitDeck(&kartu);
+    Stack deck;
+    InitDeck(&deck); 
 
-    PrintInfo(kartu);
+    PrintStack(deck);
     return 0;
 }
