@@ -30,25 +30,12 @@ boolean IsEmpty (Stack S)
 }
 
 /**** Menambahkan sebuah elemen ke Stack ****/
-void Push (Stack *S, infotype X)
-/* Menambahkan X sebagai elemen stack S */
-/* IS : S mungkin kosong */
-/* FS : X menjadi TOP yang baru */
-{
-	address P;
-	
-	P = (address)malloc(sizeof(ElmtList));
-	
+void Push(Stack *S, infotype X) {
+    address P = (address) malloc(sizeof(ElmtList));
     if (P != NULL) {
-    	if (IsEmpty(*S)){
-    		Info(P) = X;
-	        Next(P) = Nil;
-	        SetTop(S, P);
-		} else {
-			Info(P) = X;
-	        Next(P) = *S;
-	        SetTop(S, P);			
-		}
+        Info(P) = X;
+        Next(P) = *S;
+        *S = P;
     }
 }
 
