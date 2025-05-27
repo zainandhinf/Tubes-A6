@@ -1,5 +1,7 @@
 #ifndef DECK_H
 #define DECK_H
+#include <stdio.h>
+#include <stdlib.h>
 #include "boolean.h"
 #include "sll.h"
 #include "stack.h"
