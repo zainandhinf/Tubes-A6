@@ -22,8 +22,8 @@ infotype DrawCard(List *deck);
 // Fungsi untuk menarik kartu dari deck jika tidak yang di mainkan
 void AddCardToDeck(Stack *deck, Stack *discard);
 // Fungsi untuk menambah kartu ke stack 
-void InitDiscard(Stack *s);
-// Fungsi untuk menginisialisasi  stack kartu yang dimainkan
+void InitDiscard(Stack *deck, Stack *discard);
+// Fungsi untuk menginisialisasi  stack kartu yang dimainkan dan kartu pertamanya
 void PushDiscard(Stack *s, infotype kartu);
 // Fungsi untuk menambah kartu ke stack kartu yang dimainkan
 infotype Top(Stack s);
@@ -38,8 +38,6 @@ void RefillDeck(List *deck, Stack *discard);
 // Saat deck habis, isi ulang deck dari discard pile kecuali kartu paling atas
 int CountStack(Stack s);
 // Menghitung jumlah kartu di dalam deck
-void InitFirstCard(Stack *deck, Stack *discard);
-// Inisialisasi kartu pertama yang dimainkan dari deck ke discard pile
 
 
 #endif

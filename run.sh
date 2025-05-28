@@ -12,4 +12,4 @@ if [ $? -eq 0 ]; then
 else
     echo "Compilation failed. See errors above."
     exit 1
-ficlear
+fi

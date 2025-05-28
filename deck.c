@@ -39,30 +39,12 @@ void ShuffleDeck(List *deck) {
 }
 
 
-void InitDiscard(Stack *s) {
-    CreateEmpty(s);
-}
+void InitDiscard(Stack *deck, Stack *discard) {
+    CreateEmpty(discard);
 
-infotype Top(Stack s) {
-    if (IsEmpty(s)) {
-        printf("Stack kosong\n");
-
-        infotype dummy;
-        dummy.jenis = ANGKA;
-        dummy.angka = -1;
-        dummy.warna = HITAM;
-        dummy.efek = '\0';
-
-        return dummy;
-    } else {
-        return Info(s);
-    }
-}
-
-void InitFirstCard(Stack *deck, Stack *discard) {
     infotype kartu;
-    Stack temp1; // Untuk menyimpan kartu aksi sementara
-    Stack temp2; // Untuk menyimpan kartu angka sementara (hanya 1 kartu)
+    Stack temp1; 
+    Stack temp2; 
 
     CreateEmpty(&temp1);
     CreateEmpty(&temp2);
@@ -95,6 +77,7 @@ void InitFirstCard(Stack *deck, Stack *discard) {
 
     Pop(deck, &kartu);
     Push(discard, kartu);
+
     printf("Kartu pertama: ");
     switch (kartu.jenis) {
         case ANGKA: printf("%d ", kartu.angka); break;
@@ -110,6 +93,22 @@ void InitFirstCard(Stack *deck, Stack *discard) {
         case BIRU: printf("[BIRU]\n"); break;
         case KUNING: printf("[KUNING]\n"); break;
         case HITAM: printf("[HITAM]\n"); break;
+    }
+}
+
+infotype Top(Stack s) {
+    if (IsEmpty(s)) {
+        printf("Stack kosong\n");
+
+        infotype dummy;
+        dummy.jenis = ANGKA;
+        dummy.angka = -1;
+        dummy.warna = HITAM;
+        dummy.efek = '\0';
+
+        return dummy;
+    } else {
+        return Info(s);
     }
 }
 
