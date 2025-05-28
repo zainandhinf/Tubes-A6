@@ -18,8 +18,8 @@ void InitDeck(Stack *deck);
 // 4 kartu WILD DRAW4
 void ShuffleDeck(List *deck);
 // Fungsi untuk mengacak urutan kartu dalam deck
-infotype DrawCard(List *deck);
-// Fungsi untuk menarik kartu dari deck jika tidak yang di mainkan
+void DrawCard(Stack *deck, KartuBTree **hand);
+// Fungsi untuk mengambil kartu dari deck ke tangan pemain 
 void AddCardToDeck(Stack *deck, Stack *discard);
 // Fungsi untuk menambah kartu ke stack 
 void InitDiscard(Stack *deck, Stack *discard);
