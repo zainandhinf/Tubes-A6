@@ -20,7 +20,7 @@ boolean is_Empty(Queue Q)
 /*Memeriksa apakah queue penuh */
 boolean is_Full(Queue Q)
 {
-	address P;
+	addresspemain P;
 	int jumlah;
 
 	jumlah = 0;
@@ -43,11 +43,11 @@ boolean is_Full(Queue Q)
 }
 
 /*Melekukan insertion pada queue*/
-void EnQueue(Queue *Q, infotype X)
+void EnQueue(Queue *Q, Pemain X)
 {
-	address P;
+	addresspemain P;
 
-	P = (address)malloc(sizeof(ElmtList));
+	P = (addresspemain)malloc(sizeof(PemainList));
 	if (P != NULL)
 	{
 		if (is_Full(*Q))
@@ -56,8 +56,8 @@ void EnQueue(Queue *Q, infotype X)
 		}
 		else
 		{
-			Info(P) = X;
-			Next(P) = Nil;
+			P->info = X;
+			P->next = Nil;
 			if (is_Empty(*Q))
 			{
 				(*Q).Front = P;
@@ -73,9 +73,9 @@ void EnQueue(Queue *Q, infotype X)
 }
 
 /*Melakukan deletion pada queue*/
-void deQueue(Queue *Q, infotype *X)
+void deQueue(Queue *Q, Pemain *X)
 {
-	address P;
+	addresspemain P;
 
 	P = (*Q).Front;
 
@@ -85,7 +85,7 @@ void deQueue(Queue *Q, infotype *X)
 	}
 	else
 	{
-		*X = (*P).info;
+		*X = P->info;
 		if ((*P).next != Nil)
 		{
 			(*Q).Front = (*P).next;

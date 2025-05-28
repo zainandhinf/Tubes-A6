@@ -35,22 +35,27 @@ typedef struct KartuTree {
     struct KartuTree *right;
 } KartuTree;
 
-typedef struct PemainList {
-    Kartu info;
-    struct KartuTree *root;
-    struct PemainList *next;
-} PemainList;
-
-typedef Kartu infotype;
+typedef struct PemainList *addresspemain;
 
 typedef struct Pemain {
     char nama[50];
     // KartuList *tangan;
     int jumlahKartu;
     int sudahUndoRedo;
-    struct Pemain *next;
+    // struct Pemain *next;
 } Pemain;
 
+typedef struct PemainList {
+    Pemain info;
+    struct KartuTree *root;
+    struct PemainList *next;
+} PemainList;
+
+typedef Kartu infotype;
+
+
+
+// typedef Pemain pemaininfo;
 
 // void InitGiliran(Queue *q, int jumlahPemain);
 // // Fungsi untuk menginisialisasi giliran pemain

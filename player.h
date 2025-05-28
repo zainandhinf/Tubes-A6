@@ -14,31 +14,31 @@ void InitGiliran(Queue *q, int jumlahPemain);
 void NextGiliran(Queue *q);
 // fungsi untuk mengubah giliran pemain
 
-int CurrentPlayer(Queue q);
+Pemain *CurrentPlayer(Queue *q);
 // Fungsi untuk mendapatkan pemain yang sedang bermain dari queue
 
-void CreatePlayerList(Pemain **head);
+void CreatePlayerList(PemainList **head);
 // Fungsi untuk membuat list pemain
 
-Pemain *AlokasiPlayer(const char *nama);
+PemainList *AlokasiPlayer(const char *nama);
 // Fungsi untuk mengalokasi memori untuk pemain baru
 
-void DealokasiPlayer(Pemain *P);
+void DealokasiPlayer(PemainList *P);
 // Fungsi untuk dealokasi memori pemain jika sudah tidak digunakan
 
-boolean PlayerListEmpty(Pemain *head);
+boolean PlayerListEmpty(PemainList *head);
 // Fungsi untuk mengecek apakah list pemain kosong atau tidak
 
-void InsertPlayerFirst(Pemain **head, Pemain *P);
+void InsertPlayerFirst(PemainList **head, PemainList *P);
 // Fungsi untuk menambah pemain ke list pemain
 
-Pemain *SearchPlayer(Pemain *head, const char *nama);
+PemainList *SearchPlayer(PemainList *head, const char *nama);
 // Fungsi untuk mencari pemain dalam list pemain
 
-void DeletePlayer(Pemain **head, const char *nama);
+void DeletePlayer(PemainList **head, const char *nama, Queue *q);
 // Fungsi untuk menghapus pemain dari list pemain
 
-void PrintPlayerList(Pemain *head);
+void PrintPlayerList(PemainList *head);
 // Fungsi untuk mencetak list pemain
 
 #endif

@@ -5,12 +5,15 @@
 #include "BOOLEAN.H"
 #include "sll.h"
 #include "uno.h"
+// #include "player.h"
 #define NBElement 10
+
+
 
 typedef struct
 {
-    address Front;
-    address Rear;
+    addresspemain Front;
+    addresspemain Rear;
 } ListQueue;
 
 typedef ListQueue Queue;
@@ -25,9 +28,9 @@ boolean is_Empty(Queue Q);
 boolean is_Full(Queue Q);
 
 /*Melekukan insertion pada queue*/
-void EnQueue(Queue *Q, infotype X);
+void EnQueue(Queue *Q, Pemain X);
 
 /*Melakukan deletion pada queue*/
-void deQueue(Queue *Q, infotype *X);
+void deQueue(Queue *Q, Pemain *X);
 
 #endif

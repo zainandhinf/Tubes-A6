@@ -1,8 +1,9 @@
 {
-    "files.associations": {
-        "*.embeddedhtml": "html",
-        "sll.H": "cpp",
-        "boolean.h": "c",
-        "BOOLEAN.H": "cpp"
-    }
+  "files.associations": {
+    "*.embeddedhtml": "html",
+    "sll.H": "cpp",
+    "boolean.h": "c",
+    "BOOLEAN.H": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }
