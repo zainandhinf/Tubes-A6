@@ -80,3 +80,33 @@ boolean IsKartuEqual(Kartu a, Kartu b) {
     
     return true;
 }
+
+void BagiKartu(Stack *deck, PemainList pemain[]) {
+    Kartu kartu;
+    int i, j;
+    
+    for (i = 0; i < 4; i++) {
+        pemain[i].root = NULL;
+        pemain[i].info.jumlahKartu = 0;
+    }
+    
+    for (i = 0; i < 7; i++) {
+        for (j = 0; j < 4; j++) {
+            if (!IsEmpty(*deck)) {
+                Pop(deck, &kartu);
+                TambahKartuKePemain(&pemain[j], kartu);
+            }
+        }
+    }
+}
+
+void TambahKartuKePemain(PemainList *pemain, Kartu kartu) {
+    pemain->root = insert(pemain->root, kartu);
+    pemain->info.jumlahKartu++;
+}
+
+void TampilkanKartuPemain(PemainList pemain) {
+    printf("Jumlah kartu: %d\n", pemain.info.jumlahKartu);
+    printf("Daftar kartu:\n");
+    preOrder(pemain.root);
+}

@@ -10,7 +10,17 @@ int main(){
     srand(time(NULL));
 
     Stack deck;
+    PemainList pemain[4];
+    int i;
     InitDeck(&deck); 
+
+    BagiKartu(&deck, pemain);
+    
+    for (i = 0; i < 4; i++) {
+        printf("Pemain %d:\n", i+1);
+        TampilkanKartuPemain(pemain[i]);
+        printf("\n");
+    }
 
     PrintStack(deck);
     return 0;
