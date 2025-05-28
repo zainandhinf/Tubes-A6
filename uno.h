@@ -21,7 +21,7 @@ typedef enum {
     WILD_DRAW4
 } JenisKartu;
 
-typedef struct {
+typedef struct Kartu{
     // Hapus/ubah aja kalo gk perlu
     WarnaKartu warna;
     JenisKartu jenis;
@@ -29,13 +29,14 @@ typedef struct {
     char efek;
 } Kartu;
 
-typedef struct KartuTree {
+typedef struct KartuBTree {
     Kartu info;
-    struct KartuTree *left;
-    struct KartuTree *right;
-} KartuTree;
+    struct KartuBTree *left;
+    struct KartuBTree *right;
+    int height;
+} KartuBTree;
 
-typedef struct PemainList *addresspemain;
+typedef struct  PemainList *addresspemain;
 
 typedef struct Pemain {
     char nama[50];
@@ -47,15 +48,11 @@ typedef struct Pemain {
 
 typedef struct PemainList {
     Pemain info;
-    struct KartuTree *root;
+    struct KartuBTree *root;
     struct PemainList *next;
 } PemainList;
 
 typedef Kartu infotype;
-
-
-
-// typedef Pemain pemaininfo;
 
 // void InitGiliran(Queue *q, int jumlahPemain);
 // // Fungsi untuk menginisialisasi giliran pemain

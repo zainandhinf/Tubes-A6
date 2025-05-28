@@ -16,6 +16,7 @@ void InitDeck(Stack *deck) {
 
 void ShuffleDeck(List *deck) {
     Kartu array[108];
+    int i;
     int n = 0;
 
     address p = First(*deck);
@@ -24,7 +25,7 @@ void ShuffleDeck(List *deck) {
         p = Next(p);
     }
 
-    for (int i = n - 1; i > 0; i--) {
+    for (i = n - 1; i > 0; i--) {
         int j = rand() % (i + 1);
         Kartu temp = array[i];
         array[i] = array[j];
@@ -32,36 +33,18 @@ void ShuffleDeck(List *deck) {
     }
 
     CreateList(deck);
-    for (int i = 0; i < n; i++) {
+    for (i = 0; i < n; i++) {
         InsVLast(deck, array[i]);
     }
 }
 
 
-void InitDiscard(Stack *s) {
-    CreateEmpty(s);
-}
+void InitDiscard(Stack *deck, Stack *discard) {
+    CreateEmpty(discard);
 
-infotype Top(Stack s) {
-    if (IsEmpty(s)) {
-        printf("Stack kosong\n");
-
-        infotype dummy;
-        dummy.jenis = ANGKA;
-        dummy.angka = -1;
-        dummy.warna = HITAM;
-        dummy.efek = '\0';
-
-        return dummy;
-    } else {
-        return Info(s);
-    }
-}
-
-void InitFirstCard(Stack *deck, Stack *discard) {
     infotype kartu;
-    Stack temp1; // Untuk menyimpan kartu aksi sementara
-    Stack temp2; // Untuk menyimpan kartu angka sementara (hanya 1 kartu)
+    Stack temp1; 
+    Stack temp2; 
 
     CreateEmpty(&temp1);
     CreateEmpty(&temp2);
@@ -94,6 +77,7 @@ void InitFirstCard(Stack *deck, Stack *discard) {
 
     Pop(deck, &kartu);
     Push(discard, kartu);
+
     printf("Kartu pertama: ");
     switch (kartu.jenis) {
         case ANGKA: printf("%d ", kartu.angka); break;
@@ -112,6 +96,22 @@ void InitFirstCard(Stack *deck, Stack *discard) {
     }
 }
 
+infotype Top(Stack s) {
+    if (IsEmpty(s)) {
+        printf("Stack kosong\n");
+
+        infotype dummy;
+        dummy.jenis = ANGKA;
+        dummy.angka = -1;
+        dummy.warna = HITAM;
+        dummy.efek = '\0';
+
+        return dummy;
+    } else {
+        return Info(s);
+    }
+}
+
 int CountStack(Stack s) {
     int count = 0;
     while (s != NULL) {
@@ -119,4 +119,35 @@ int CountStack(Stack s) {
         s = Next(s);
     }
     return count;
+}
+
+void DrawCard(Stack *deck, KartuBTree **hand) {
+    if (IsEmpty(*deck)) {
+        printf("Deck kosong! Tidak bisa draw kartu.\n");
+        return;
+    }
+
+    Kartu kartu;
+    Pop(deck, &kartu);
+    *hand = insert(*hand, kartu);
+
+    printf("Pemain menarik kartu: ");
+    switch (kartu.jenis) {
+        case ANGKA: printf("%d ", kartu.angka); break;
+        case SKIP: printf("SKIP "); break;
+        case REVERSE: printf("REVERSE "); break;
+        case DRAW2: printf("DRAW 2 "); break;
+        case WILD: printf("WILD "); break;
+        case WILD_DRAW4: printf("WILD DRAW 4 "); break;
+    }
+    printf("[");
+
+    switch (kartu.warna) {
+        case MERAH: printf("MERAH"); break;
+        case HIJAU: printf("HIJAU"); break;
+        case BIRU: printf("BIRU"); break;
+        case KUNING: printf("KUNING"); break;
+        case HITAM: printf("HITAM"); break;
+    }
+    printf("]\n");
 }
