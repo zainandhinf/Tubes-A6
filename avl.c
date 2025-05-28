@@ -162,10 +162,11 @@ KartuBTree *insert(KartuBTree *node, Kartu kartu)
 // A utility function to print preorder traversal
 // of the tree.
 // The function also prints height of every node
-void preOrder(KartuBTree *root)
+void inOrder(KartuBTree *root)
 {
     if (root != NULL) {
-        // Print card info
+        inOrder(root->left);
+
         printf("Kartu: ");
         switch (root->info.jenis) {
             case ANGKA: printf("%d ", root->info.angka); break;
@@ -184,11 +185,11 @@ void preOrder(KartuBTree *root)
             case HITAM: printf("HITAM"); break;
         }
         printf("]\n");
-        
-        preOrder(root->left);
-        preOrder(root->right);
+
+        inOrder(root->right);
     }
 }
+
 
 // /* Driver program to test above function*/
 // int main()

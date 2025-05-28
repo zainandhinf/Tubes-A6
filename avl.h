@@ -22,6 +22,6 @@ KartuBTree *leftRotate(KartuBTree *x);
 int getBalance(KartuBTree *N);
 int compareKartu(Kartu a, Kartu b);
 KartuBTree *insert(KartuBTree *node, Kartu kartu);
-void preOrder(KartuBTree *root);
+void inOrder(KartuBTree *root);
 
 #endif

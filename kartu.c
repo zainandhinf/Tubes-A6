@@ -108,5 +108,5 @@ void TambahKartuKePemain(PemainList *pemain, Kartu kartu) {
 void TampilkanKartuPemain(PemainList pemain) {
     printf("Jumlah kartu: %d\n", pemain.info.jumlahKartu);
     printf("Daftar kartu:\n");
-    preOrder(pemain.root);
+    inOrder(pemain.root);
 }
