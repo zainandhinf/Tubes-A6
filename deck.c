@@ -158,19 +158,20 @@ void RefillDeck(List *deck, Stack *discard) {
         return;
     }
 
-    Kartu topCard = Pop(discard);
+    Kartu topCard;
+    Pop(discard, &topCard);
     Stack temp;
     CreateEmpty(&temp);
 
+    Kartu tempCard;
     while (!IsEmpty(*discard)) {
-        Push(&temp, Pop(discard));
+        Pop(discard, &tempCard);
+        Push(&temp, tempCard);
     }
 
     while (!IsEmpty(temp)) {
-        Kartu k;
-        Pop(&temp);
-        Push(discard, k);
-        InsVLast(deck, k);
+        Pop(&temp, &tempCard);
+        InsVLast(deck, tempCard);
     }
 
     Push(discard, topCard);
