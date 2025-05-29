@@ -151,3 +151,29 @@ void DrawCard(Stack *deck, KartuBTree **hand) {
     }
     printf("]\n");
 }
+
+void RefillDeck(List *deck, Stack *discard) {
+    if (IsEmpty(*discard)) {
+        printf("Tidak bisa refill\n");
+        return;
+    }
+
+    Kartu topCard = Pop(discard);
+    Stack temp;
+    CreateEmpty(&temp);
+
+    while (!IsEmpty(*discard)) {
+        Push(&temp, Pop(discard));
+    }
+
+    while (!IsEmpty(temp)) {
+        Kartu k;
+        Pop(&temp);
+        Push(discard, k);
+        InsVLast(deck, k);
+    }
+
+    Push(discard, topCard);
+
+    ShuffleDeck(deck);
+}
