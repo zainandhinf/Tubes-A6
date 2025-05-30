@@ -121,17 +121,17 @@ int CountStack(Stack s) {
     return count;
 }
 
-void DrawCard(Stack *deck, KartuBTree **hand) {
+void DrawCard(Stack *deck, PemainList *pemain) {
     if (IsEmpty(*deck)) {
-        printf("Deck kosong! Tidak bisa draw kartu.\n");
+        printf("Deck kosong! Tidak bisa draw kartu\n");
         return;
     }
 
     Kartu kartu;
     Pop(deck, &kartu);
-    *hand = insert(*hand, kartu);
+    TambahKartuKePemain(pemain, kartu);
 
-    printf("Pemain menarik kartu: ");
+    printf("Pemain mengambil kartu: ");
     switch (kartu.jenis) {
         case ANGKA: printf("%d ", kartu.angka); break;
         case SKIP: printf("SKIP "); break;
@@ -140,8 +140,8 @@ void DrawCard(Stack *deck, KartuBTree **hand) {
         case WILD: printf("WILD "); break;
         case WILD_DRAW4: printf("WILD DRAW 4 "); break;
     }
-    printf("[");
 
+    printf("[");
     switch (kartu.warna) {
         case MERAH: printf("MERAH"); break;
         case HIJAU: printf("HIJAU"); break;
