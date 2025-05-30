@@ -5,18 +5,24 @@
 #include <stdbool.h>
 #include "player.h"
 
-void InitGiliran(Queue *q, int jumlahPemain){
+
+void InitGiliran(Queue *q, int jumlahPemain) {
     CreateQueue(q);
-    for (int i = 0; i < jumlahPemain; i++){
-        
+    for (int i = 0; i < jumlahPemain; i++) {
         Pemain pemainBaru;
+
+        getchar();
+
         printf("Masukkan nama pemain %d: ", i + 1);
+          
         fgets(pemainBaru.nama, sizeof(pemainBaru.nama), stdin);
-        pemainBaru.nama[strcspn(pemainBaru.nama, "\n")] = 0;
+        pemainBaru.nama[strcspn(pemainBaru.nama, "\n")] = 0; // Hapus newline
+
         pemainBaru.jumlahKartu = 0;
         pemainBaru.sudahUndoRedo = 0;
         EnQueue(q, pemainBaru);
-        printf("Pemain Berhasil di Masukkan \n", pemainBaru.nama);
+
+        printf("Pemain %s berhasil dimasukkan\n", pemainBaru.nama);
     }
 }
 void NextGiliran(Queue *q){
