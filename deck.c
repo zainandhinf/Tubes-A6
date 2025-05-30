@@ -39,11 +39,12 @@ void ShuffleDeck(List *deck) {
 }
 
 
-Kartu InitDiscard(Stack *deck, Stack *discard) {
+void InitDiscard(Stack *deck, Stack *discard) {
     CreateEmpty(discard);
 
-    Kartu kartu;
-    Stack temp1, temp2;
+    infotype kartu;
+    Stack temp1; 
+    Stack temp2; 
 
     CreateEmpty(&temp1);
     CreateEmpty(&temp2);
@@ -63,14 +64,7 @@ Kartu InitDiscard(Stack *deck, Stack *discard) {
             Pop(&temp1, &kartu);
             Push(deck, kartu);
         }
-
-        // Kartu dummy buat indikator gagal
-        Kartu dummy;
-        dummy.jenis = ANGKA;
-        dummy.angka = -1;
-        dummy.warna = HITAM;
-        dummy.efek = '\0';
-        return dummy;
+        return;
     }
 
     while (!IsEmpty(temp1)) {
@@ -79,12 +73,27 @@ Kartu InitDiscard(Stack *deck, Stack *discard) {
     }
 
     Pop(&temp2, &kartu);
-    Push(deck, kartu); 
+    Push(deck, kartu);
 
     Pop(deck, &kartu);
     Push(discard, kartu);
 
-    return kartu;
+    printf("Kartu pertama: ");
+    switch (kartu.jenis) {
+        case ANGKA: printf("%d ", kartu.angka); break;
+        case SKIP: printf("SKIP "); break;
+        case REVERSE: printf("REVERSE "); break;
+        case DRAW2: printf("DRAW 2 "); break;
+        case WILD: printf("WILD "); break;
+        case WILD_DRAW4: printf("WILD DRAW 4 "); break;
+    }
+    switch (kartu.warna) {
+        case MERAH: printf("[MERAH]\n"); break;
+        case HIJAU: printf("[HIJAU]\n"); break;
+        case BIRU: printf("[BIRU]\n"); break;
+        case KUNING: printf("[KUNING]\n"); break;
+        case HITAM: printf("[HITAM]\n"); break;
+    }
 }
 
 infotype Top(Stack s) {

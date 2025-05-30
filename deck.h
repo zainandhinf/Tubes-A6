@@ -22,7 +22,7 @@ void DrawCard(Stack *deck, KartuBTree **hand);
 // Fungsi untuk mengambil kartu dari deck ke tangan pemain 
 void AddCardToDeck(Stack *deck, Stack *discard);
 // Fungsi untuk menambah kartu ke stack 
-Kartu InitDiscard(Stack *deck, Stack *discard);
+void InitDiscard(Stack *deck, Stack *discard);
 // Fungsi untuk menginisialisasi  stack kartu yang dimainkan dan kartu pertamanya
 void PushDiscard(Stack *s, infotype kartu);
 // Fungsi untuk menambah kartu ke stack kartu yang dimainkan
