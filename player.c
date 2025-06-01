@@ -8,13 +8,13 @@
 
 void InitGiliran(Queue *q, int jumlahPemain) {
     CreateQueue(q);
+
+    getchar();  // Membuang newline dari scanf jumlahPemain, hanya SEKALI
+
     for (int i = 0; i < jumlahPemain; i++) {
         Pemain pemainBaru;
 
-        getchar();
-
         printf("Masukkan nama pemain %d: ", i + 1);
-          
         fgets(pemainBaru.nama, sizeof(pemainBaru.nama), stdin);
         pemainBaru.nama[strcspn(pemainBaru.nama, "\n")] = 0; // Hapus newline
 
@@ -25,6 +25,7 @@ void InitGiliran(Queue *q, int jumlahPemain) {
         printf("Pemain %s berhasil dimasukkan\n", pemainBaru.nama);
     }
 }
+
 void NextGiliran(Queue *q){
     if (is_Empty(*q)){
         printf("tidak ada pemain dalam antrian \n");
@@ -136,3 +137,20 @@ void PrintPlayerList(PemainList *head){
     }
 }
 
+void TampilkanDaftarPemain(Queue q) {
+    if (is_Empty(q)) {
+        printf("Belum ada pemain yang didaftarkan.\n");
+        return;
+    }
+
+    int count = 0;
+    addresspemain current = q.Front;
+
+    printf("\n=== Daftar Pemain ===\n");
+    while (current != NULL) {
+        count++;
+        printf("%d. %s\n", count, current->info.nama);
+        current = current->next;
+    }
+    printf("Total pemain: %d\n", count);
+}

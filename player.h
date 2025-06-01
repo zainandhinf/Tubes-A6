@@ -41,4 +41,6 @@ void DeletePlayer(PemainList **head, const char *nama, Queue *q);
 void PrintPlayerList(PemainList *head);
 // Fungsi untuk mencetak list pemain
 
+void TampilkanDaftarPemain(Queue q);
+// Fungsi untuk menampilkan daftar pemain yang ada dalam queue
 #endif
