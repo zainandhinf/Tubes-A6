@@ -63,11 +63,10 @@ void menuPlay(){
         printf("=============================================================\n");
         printf("\nSilahkan pilih\n");
         printf("1. Masukkan jumlah pemain \n");
-        printf("2. Masukkan Nama Pemain \n");
-        printf("3. Tampilkan Semua Pemain \n");
-        printf("4. Mulai Permainan \n");
-        printf("5. Kembali ke Menu Utama ");
-        printf("\nMasukkan pilihan Anda: ");
+        printf("2. Tampilkan Semua Pemain \n");
+        printf("3. Mulai Permainan \n");
+        printf("4. Kembali ke Menu Utama \n");
+        printf("Masukkan pilihan Anda: ");
         scanf("%d", &sub);
         getchar();
 
@@ -75,22 +74,20 @@ void menuPlay(){
             case 1:
                 printf("Masukkan jumlah pemain: \n");
                 scanf("%d", &jumlahPemain);
-                break;
-            case 2:
                 printf("Masukkan nama pemain: \n");
                 Queue q;
                 CreateQueue(&q);
                 InitGiliran(&q, jumlahPemain);
                 pemainSudahDiinput = true;
                 break;
-            case 3:
+            case 2:
                 printf("menampilkan daftar pemain: \n");
                 TampilkanDaftarPemain(q);
                 break;
-            case 4:
+            case 3:
                 printf("Memulai permainan... \n");
                 break;
-            case 5:
+            case 4:
                 stay = false;
                 break;
             default:

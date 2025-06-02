@@ -115,8 +115,8 @@ void DeletePlayer(PemainList **head, const char *nama, Queue *q){
     } else {
         printf("pemain '%s' tidak di temukan \n", nama);
     }
-
 }
+
 void PrintPlayerList(PemainList *head){
     PemainList *currentplayer = head;
     if (PlayerListEmpty(head)) {
@@ -126,8 +126,8 @@ void PrintPlayerList(PemainList *head){
     printf("List Pemain:\n");
     while (currentplayer != NULL) {
         printf("Nama: %s, Jumlah Kartu: %d\n", 
-        currentplayer->info.nama, 
-        currentplayer->info.jumlahKartu, 
+               currentplayer->info.nama, 
+               currentplayer->info.jumlahKartu);
         currentplayer = currentplayer->next;
     }
 }
