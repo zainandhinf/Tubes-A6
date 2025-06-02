@@ -20,7 +20,7 @@ void startProgram(){
         printf("||            UUUUUUU     NNN   NNN     OOOOOOO            ||\n");   
         printf("||                                                         ||\n");
         printf("=============================================================\n");
-        printf("\nSelamat datang di Game UNO! \n");
+        printf("\n              Selamat datang di Game UNO!                \n\n");
         printf("1. Mulai Game \n");
         printf("2. Info \n");
         printf("3. Keluar \n");
@@ -30,7 +30,8 @@ void startProgram(){
 
         switch (pilihan) {
             case 1:
-                menuPlay();
+                system("cls");
+                menuPlay(); // Clear screen for Windows, use "clear" for Unix/Linux
                 break;
             case 2:
                 // menuInfo();
@@ -88,6 +89,7 @@ void menuPlay(){
                 printf("Memulai permainan... \n");
                 break;
             case 4:
+                system("cls");
                 stay = false;
                 break;
             default:
