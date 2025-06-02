@@ -10,7 +10,17 @@ void startProgram(){
     bool runing = true;
 
     while (runing){
-        printf("Selamat datang di Game UNO! \n");
+        printf("\n");
+        printf("=======================================================\n");
+        printf("|                                                     |\n");
+        printf("|         UUU   UUU    NNN   NNN     OOOOOOO          |\n");
+        printf("|         UUU   UUU    NNNNN NNN    OOO   OOO         |\n");
+        printf("|         UUU   UUU    NNNNNNNNN    OOO   OOO         |\n");
+        printf("|         UUUU UUUU    NNN NNNNN    OOO   OOO         |\n");
+        printf("|          UUUUUUU     NNN   NNN     OOOOOOO          |\n");   
+        printf("|                                                     |\n");
+        printf("=======================================================\n");
+        printf("\nSelamat datang di Game UNO! \n");
         printf("1. Mulai Game \n");
         printf("2. Info \n");
         printf("3. Keluar \n");
@@ -46,7 +56,7 @@ void menuPlay(){
         printf("1. Masukkan jumlah pemain \n");
         printf("2. Masukan Nama Pemain \n");
         printf("3. Tampilkan semua Pemain \n");
-        printf("4. mulai permainan \n");
+        printf("4. Mulai permainan \n");
         printf("5. Kembali ke Menu Utama ");
         printf("\nMasukkan pilihan Anda: ");
         scanf("%d", &sub);
