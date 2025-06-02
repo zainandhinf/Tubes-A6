@@ -19,9 +19,7 @@ void InitGiliran(Queue *q, int jumlahPemain) {
         pemainBaru.nama[strcspn(pemainBaru.nama, "\n")] = 0; // Hapus newline
 
         pemainBaru.jumlahKartu = 0;
-        pemainBaru.sudahUndoRedo = 0;
         EnQueue(q, pemainBaru);
-
         printf("Pemain %s berhasil dimasukkan\n", pemainBaru.nama);
     }
 }
@@ -40,7 +38,6 @@ Pemain *CurrentPlayer(Queue *q){
         static Pemain playerKosong;
         strcpy(playerKosong.nama, "tidak ada player \n");
         playerKosong.jumlahKartu = 0;
-        playerKosong.sudahUndoRedo = 0;
         printf("giliran pemain kosong \n");
         return &playerKosong;
     } else{
@@ -58,7 +55,6 @@ PemainList *AlokasiPlayer(const char *nama){
         strncpy(pemainBaru->info.nama, nama, sizeof(pemainBaru->info.nama)-1);
         pemainBaru->info.nama[sizeof(pemainBaru->info.nama) - 1] = '\0';
         pemainBaru->info.jumlahKartu = 0;
-        pemainBaru->info.sudahUndoRedo = 0;
         pemainBaru->next = NULL;
         printf("pemain '%s' berhasil di alokasikan \n", pemainBaru->info.nama);
     } else {
@@ -129,10 +125,9 @@ void PrintPlayerList(PemainList *head){
     }
     printf("List Pemain:\n");
     while (currentplayer != NULL) {
-        printf("Nama: %s, Jumlah Kartu: %d, Sudah Undo/Redo: %d\n", 
+        printf("Nama: %s, Jumlah Kartu: %d\n", 
         currentplayer->info.nama, 
         currentplayer->info.jumlahKartu, 
-        currentplayer->info.sudahUndoRedo);
         currentplayer = currentplayer->next;
     }
 }

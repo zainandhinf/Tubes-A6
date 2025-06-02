@@ -42,7 +42,6 @@ typedef struct Pemain {
     char nama[50];
     // KartuList *tangan;
     int jumlahKartu;
-    int sudahUndoRedo;
     // struct Pemain *next;
 } Pemain;
 
