@@ -11,15 +11,15 @@ void startProgram(){
 
     while (runing){
         printf("\n");
-        printf("============================================================\n");
-        printf("||                                                        ||\n");
-        printf("||            UUU   UUU    NNN   NNN     OOOOOOO          ||\n");
-        printf("||            UUU   UUU    NNNNN NNN    OOO   OOO         ||\n");
-        printf("||            UUU   UUU    NNNNNNNNN    OOO   OOO         ||\n");
-        printf("||            UUUU UUUU    NNN NNNNN    OOO   OOO         ||\n");
-        printf("||             UUUUUUU     NNN   NNN     OOOOOOO          ||\n");   
-        printf("||                                                        ||\n");
-        printf("============================================================\n");
+        printf("=============================================================\n");
+        printf("||                                                         ||\n");
+        printf("||           UUU   UUU    NNN   NNN     OOOOOOO            ||\n");
+        printf("||           UUU   UUU    NNNNN NNN    OOO   OOO           ||\n");
+        printf("||           UUU   UUU    NNNNNNNNN    OOO   OOO           ||\n");
+        printf("||           UUUU UUUU    NNN NNNNN    OOO   OOO           ||\n");
+        printf("||            UUUUUUU     NNN   NNN     OOOOOOO            ||\n");   
+        printf("||                                                         ||\n");
+        printf("=============================================================\n");
         printf("\nSelamat datang di Game UNO! \n");
         printf("1. Mulai Game \n");
         printf("2. Info \n");
@@ -52,15 +52,15 @@ void menuPlay(){
     int jumlahPemain;
     bool pemainSudahDiinput = false;
     while (stay){
-        printf("============================================================\n");
-        printf("||                                                        ||\n");
-        printf("||     MMM    MMM    EEEEEE    NNN   NNN    UUU   UUU     ||\n");
-        printf("||     MMMM  MMMM    EEE       NNNNN NNN    UUU   UUU     ||\n");
-        printf("||     MMMMMMMMMM    EEEEEE    NNNNNNNNN    UUU   UUU     ||\n");
-        printf("||     MMM MM MMM    EEE       NNN NNNNN    UUUU UUUU     ||\n");
-        printf("||     MMM    MMM    EEEEEE    NNN   NNN     UUUUUUU      ||\n");   
-        printf("||                                                        ||\n");
-        printf("============================================================\n");
+        printf("=============================================================\n");
+        printf("||                                                         ||\n");
+        printf("||     MMM    MMM    EEEEEEE    NNN   NNN    UUU   UUU     ||\n");
+        printf("||     MMMM  MMMM    EEE        NNNNN NNN    UUU   UUU     ||\n");
+        printf("||     MMMMMMMMMM    EEEEEEE    NNNNNNNNN    UUU   UUU     ||\n");
+        printf("||     MMM MM MMM    EEE        NNN NNNNN    UUUU UUUU     ||\n");
+        printf("||     MMM    MMM    EEEEEEE    NNN   NNN     UUUUUUU      ||\n");   
+        printf("||                                                         ||\n");
+        printf("=============================================================\n");
         printf("\nSilahkan pilih\n");
         printf("1. Masukkan jumlah pemain \n");
         printf("2. Masukkan Nama Pemain \n");
