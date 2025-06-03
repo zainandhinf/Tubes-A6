@@ -5,9 +5,14 @@
 #include <string.h>
 #include <stdbool.h>
 
+Queue q;
+bool pemainSudahDiinput = false;
+
 void startProgram(){
     int pilihan;
     bool runing = true;
+
+    CreateQueue(&q); 
 
     while (runing){
         printf("\n");
@@ -31,7 +36,7 @@ void startProgram(){
         switch (pilihan) {
             case 1:
                 system("cls");
-                menuPlay(); // Clear screen for Windows, use "clear" for Unix/Linux
+                menuPlay(); 
                 break;
             case 2:
                 // menuInfo();
@@ -51,7 +56,7 @@ void menuPlay(){
     int sub;
     bool stay = true;
     int jumlahPemain;
-    bool pemainSudahDiinput = false;
+
     while (stay){
         printf("=============================================================\n");
         printf("||                                                         ||\n");
@@ -73,17 +78,21 @@ void menuPlay(){
 
         switch (sub) {
             case 1:
-                printf("Masukkan jumlah pemain: \n");
+                system("cls");  
+                printf("Masukkan jumlah pemain: ");
                 scanf("%d", &jumlahPemain);
-                printf("Masukkan nama pemain: \n");
-                Queue q;
-                CreateQueue(&q);
-                InitGiliran(&q, jumlahPemain);
+                InitGiliran(&q, jumlahPemain); 
                 pemainSudahDiinput = true;
+                backToMenu();
                 break;
             case 2:
-                printf("menampilkan daftar pemain: \n");
-                TampilkanDaftarPemain(q);
+                system("cls");
+                if (pemainSudahDiinput) {
+                    TampilkanDaftarPemain(q);  
+                } else {
+                    printf("Belum ada pemain yang didaftarkan.\n");
+                }
+                backToMenu();
                 break;
             case 3:
                 printf("Memulai permainan... \n");
@@ -97,5 +106,12 @@ void menuPlay(){
                 break;
         }
     }
+}
 
+void backToMenu (){
+    int pilihan;
+    printf("\nKetik 1 untuk kembali: ");
+    scanf("%d", &pilihan);
+    getchar(); 
+    // Tidak perlu panggil menuPlay() di sini lagi
 }

@@ -14,7 +14,7 @@ void InitGiliran(Queue *q, int jumlahPemain) {
     for (int i = 0; i < jumlahPemain; i++) {
         Pemain pemainBaru;
 
-        printf("Masukkan nama pemain %d: ", i + 1);
+        printf("\nMasukkan nama pemain %d: ", i + 1);
         fgets(pemainBaru.nama, sizeof(pemainBaru.nama), stdin);
         pemainBaru.nama[strcspn(pemainBaru.nama, "\n")] = 0; // Hapus newline
 
@@ -126,8 +126,8 @@ void PrintPlayerList(PemainList *head){
     printf("List Pemain:\n");
     while (currentplayer != NULL) {
         printf("Nama: %s, Jumlah Kartu: %d\n", 
-               currentplayer->info.nama, 
-               currentplayer->info.jumlahKartu);
+                currentplayer->info.nama, 
+                currentplayer->info.jumlahKartu);
         currentplayer = currentplayer->next;
     }
 }
