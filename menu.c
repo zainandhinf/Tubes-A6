@@ -26,9 +26,9 @@ void startProgram(){
         printf("||                                                         ||\n");
         printf("=============================================================\n");
         printf("\n              Selamat datang di Game UNO!                \n\n");
-        printf("1. Mulai Game \n");
-        printf("2. Info \n");
-        printf("3. Keluar \n");
+        printf("1. Mulai\n");
+        printf("2. Info\n");
+        printf("3. Keluar\n");
         printf("Masukkan Pilihan Anda: ");
         scanf("%d", &pilihan);
         getchar();
@@ -58,6 +58,7 @@ void menuPlay(){
     int jumlahPemain;
 
     while (stay){
+        system("cls");
         printf("=============================================================\n");
         printf("||                                                         ||\n");
         printf("||     MMM    MMM    EEEEEEE    NNN   NNN    UUU   UUU     ||\n");
@@ -67,8 +68,8 @@ void menuPlay(){
         printf("||     MMM    MMM    EEEEEEE    NNN   NNN     UUUUUUU      ||\n");   
         printf("||                                                         ||\n");
         printf("=============================================================\n");
-        printf("\nSilahkan pilih\n");
-        printf("1. Masukkan jumlah pemain \n");
+        printf("\n                     Silahkan pilih                      \n\n");
+        printf("1. Masukkan Pemain \n");
         printf("2. Tampilkan Semua Pemain \n");
         printf("3. Mulai Permainan \n");
         printf("4. Kembali ke Menu Utama \n");
@@ -79,8 +80,24 @@ void menuPlay(){
         switch (sub) {
             case 1:
                 system("cls");  
-                printf("Masukkan jumlah pemain: ");
-                scanf("%d", &jumlahPemain);
+                printf("=============================================================\n");
+                printf("||                                                         ||\n");
+                printf("||     MMM    MMM    EEEEEEE    NNN   NNN    UUU   UUU     ||\n");
+                printf("||     MMMM  MMMM    EEE        NNNNN NNN    UUU   UUU     ||\n");
+                printf("||     MMMMMMMMMM    EEEEEEE    NNNNNNNNN    UUU   UUU     ||\n");
+                printf("||     MMM MM MMM    EEE        NNN NNNNN    UUUU UUUU     ||\n");
+                printf("||     MMM    MMM    EEEEEEE    NNN   NNN     UUUUUUU      ||\n");   
+                printf("||                                                         ||\n");
+                printf("=============================================================\n");
+                printf("\n                     Masukkan Pemain                       \n");
+                do {
+                    printf("\nMasukkan jumlah pemain (2-4): ");
+                    scanf("%d", &jumlahPemain);
+                    if (jumlahPemain < 2 || jumlahPemain > 4) {
+                        printf("Jumlah pemain harus antara 2 sampai 4.\n");
+                    }
+                } while (jumlahPemain < 2 || jumlahPemain > 4);
+
                 InitGiliran(&q, jumlahPemain); 
                 pemainSudahDiinput = true;
                 backToMenu();
@@ -110,8 +127,7 @@ void menuPlay(){
 
 void backToMenu (){
     int pilihan;
-    printf("\nKetik 1 untuk kembali: ");
+    printf("\nKetik '1' untuk kembali: ");
     scanf("%d", &pilihan);
-    getchar(); 
-    // Tidak perlu panggil menuPlay() di sini lagi
+    getchar();
 }

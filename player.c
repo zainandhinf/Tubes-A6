@@ -9,14 +9,14 @@
 void InitGiliran(Queue *q, int jumlahPemain) {
     CreateQueue(q);
 
-    getchar();  // Membuang newline dari scanf jumlahPemain, hanya SEKALI
+    getchar();
 
     for (int i = 0; i < jumlahPemain; i++) {
         Pemain pemainBaru;
 
-        printf("\nMasukkan nama pemain %d: ", i + 1);
+        printf("\nMasukkan nama pemain ke-%d: ", i + 1);
         fgets(pemainBaru.nama, sizeof(pemainBaru.nama), stdin);
-        pemainBaru.nama[strcspn(pemainBaru.nama, "\n")] = 0; // Hapus newline
+        pemainBaru.nama[strcspn(pemainBaru.nama, "\n")] = 0; 
 
         pemainBaru.jumlahKartu = 0;
         EnQueue(q, pemainBaru);
@@ -26,7 +26,7 @@ void InitGiliran(Queue *q, int jumlahPemain) {
 
 void NextGiliran(Queue *q){
     if (is_Empty(*q)){
-        printf("tidak ada pemain dalam antrian \n");
+        printf("Tidak ada pemain dalam antrian \n");
     }
     PemainList pemainSekarang;
     deQueue(q, &pemainSekarang.info);
@@ -140,8 +140,16 @@ void TampilkanDaftarPemain(Queue q) {
 
     int count = 0;
     addresspemain current = q.Front;
-
-    printf("\n=== Daftar Pemain ===\n");
+    printf("=============================================================\n");
+    printf("||                                                         ||\n");
+    printf("||     MMM    MMM    EEEEEEE    NNN   NNN    UUU   UUU     ||\n");
+    printf("||     MMMM  MMMM    EEE        NNNNN NNN    UUU   UUU     ||\n");
+    printf("||     MMMMMMMMMM    EEEEEEE    NNNNNNNNN    UUU   UUU     ||\n");
+    printf("||     MMM MM MMM    EEE        NNN NNNNN    UUUU UUUU     ||\n");
+    printf("||     MMM    MMM    EEEEEEE    NNN   NNN     UUUUUUU      ||\n");   
+    printf("||                                                         ||\n");
+    printf("=============================================================\n");
+    printf("\n                     Daftar Pemain                         \n");
     while (current != NULL) {
         count++;
         printf("%d. %s\n", count, current->info.nama);
