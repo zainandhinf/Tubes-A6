@@ -69,52 +69,21 @@ void menuPlay(){
         printf("||                                                         ||\n");
         printf("=============================================================\n");
         printf("\n                     Silahkan pilih                      \n\n");
-        printf("1. Masukkan Pemain \n");
-        printf("2. Tampilkan Semua Pemain \n");
-        printf("3. Mulai Permainan \n");
-        printf("4. Kembali ke Menu Utama \n");
+        printf("1. Menu Pemain \n");
+        printf("2. Mulai Permainan \n");
+        printf("3. Kembali ke Menu Utama \n");
         printf("Masukkan pilihan Anda: ");
         scanf("%d", &sub);
         getchar();
 
         switch (sub) {
             case 1:
-                system("cls");  
-                printf("=============================================================\n");
-                printf("||                                                         ||\n");
-                printf("||     MMM    MMM    EEEEEEE    NNN   NNN    UUU   UUU     ||\n");
-                printf("||     MMMM  MMMM    EEE        NNNNN NNN    UUU   UUU     ||\n");
-                printf("||     MMMMMMMMMM    EEEEEEE    NNNNNNNNN    UUU   UUU     ||\n");
-                printf("||     MMM MM MMM    EEE        NNN NNNNN    UUUU UUUU     ||\n");
-                printf("||     MMM    MMM    EEEEEEE    NNN   NNN     UUUUUUU      ||\n");   
-                printf("||                                                         ||\n");
-                printf("=============================================================\n");
-                printf("\n                     Masukkan Pemain                       \n");
-                do {
-                    printf("\nMasukkan jumlah pemain (2-4): ");
-                    scanf("%d", &jumlahPemain);
-                    if (jumlahPemain < 2 || jumlahPemain > 4) {
-                        printf("Jumlah pemain harus antara 2 sampai 4.\n");
-                    }
-                } while (jumlahPemain < 2 || jumlahPemain > 4);
-
-                InitGiliran(&q, jumlahPemain); 
-                pemainSudahDiinput = true;
-                backToMenu();
-                break;
+                menuPemain(); 
+                break;  
             case 2:
-                system("cls");
-                if (pemainSudahDiinput) {
-                    TampilkanDaftarPemain(q);  
-                } else {
-                    printf("Belum ada pemain yang didaftarkan.\n");
-                }
-                backToMenu();
-                break;
-            case 3:
                 printf("Memulai permainan... \n");
                 break;
-            case 4:
+            case 3:
                 system("cls");
                 stay = false;
                 break;
@@ -124,7 +93,83 @@ void menuPlay(){
         }
     }
 }
+void menuPemain (){
+    int pilihan;
+    bool stay = true;
+    int jumlahPemain;
+    while (stay){
+        system("cls");
+        printf("=============================================================\n");
+        printf("||                                                         ||\n");
+        printf("||     MMM    MMM    EEEEEEE    NNN   NNN    UUU   UUU     ||\n");
+        printf("||     MMMM  MMMM    EEE        NNNNN NNN    UUU   UUU     ||\n");
+        printf("||     MMMMMMMMMM    EEEEEEE    NNNNNNNNN    UUU   UUU     ||\n");
+        printf("||     MMM MM MMM    EEE        NNN NNNNN    UUUU UUUU     ||\n");
+        printf("||     MMM    MMM    EEEEEEE    NNN   NNN     UUUUUUU      ||\n");   
+        printf("||                                                         ||\n");
+        printf("=============================================================\n");
+        printf("\n                     Silahkan pilih                      \n\n");
+        printf("1. Tambah Pemain \n");
+        printf("2. Hapus Pemain \n");
+        printf("3. Tampilkan Semua Pemain \n");
+        printf("4. Kembali ke Menu Utama \n");
+        printf("Masukkan pilihan Anda: ");
+        scanf("%d", &pilihan);
+        getchar();
 
+        switch (pilihan) {
+            case 1:
+            system("cls");  
+            printf("=============================================================\n");
+            printf("||                                                         ||\n");
+            printf("||     MMM    MMM    EEEEEEE    NNN   NNN    UUU   UUU     ||\n");
+            printf("||     MMMM  MMMM    EEE        NNNNN NNN    UUU   UUU     ||\n");
+            printf("||     MMMMMMMMMM    EEEEEEE    NNNNNNNNN    UUU   UUU     ||\n");
+            printf("||     MMM MM MMM    EEE        NNN NNNNN    UUUU UUUU     ||\n");
+            printf("||     MMM    MMM    EEEEEEE    NNN   NNN     UUUUUUU      ||\n");   
+            printf("||                                                         ||\n");
+            printf("=============================================================\n");
+            printf("\n                     Masukkan Pemain                       \n");
+            do {
+                printf("\nMasukkan jumlah pemain (2-4): ");
+                scanf("%d", &jumlahPemain);
+                if (jumlahPemain < 2 || jumlahPemain > 4) {
+                    printf("Jumlah pemain harus antara 2 sampai 4.\n");
+                }
+            } while (jumlahPemain < 2 || jumlahPemain > 4);
+
+            InitGiliran(&q, jumlahPemain); 
+            pemainSudahDiinput = true;
+            backToMenu();
+            break;
+            case 2:
+            // hapus pemain
+            system("cls");
+            if (pemainSudahDiinput) {
+                TampilkanDaftarPemain(q);  
+            } else {
+                printf("Belum ada pemain yang didaftarkan.\n");
+            }
+            backToMenu();
+                break;
+            case 3:
+            system("cls");
+            if (pemainSudahDiinput) {
+                TampilkanDaftarPemain(q);  
+            } else {
+                printf("Belum ada pemain yang didaftarkan.\n");
+            }
+            backToMenu();
+                break;
+            case 4:
+                stay = false;
+                break;
+            default:
+                printf("Pilihan tidak valid. Silakan coba lagi. \n");
+                break;
+        }
+    }
+}
 void backToMenu (){
     int pilihan;
     printf("\nKetik '1' untuk kembali: ");

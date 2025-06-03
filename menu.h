@@ -12,4 +12,6 @@ void menuPlay();
 // void menuInfo();
 // tampilan menu info untuk how to play
 void backToMenu();
+void menuPemain();  
+// tampilan menu pemain
 #endif
