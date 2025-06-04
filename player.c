@@ -5,6 +5,20 @@
 #include <stdbool.h>
 #include "player.h"
 
+void initPlayer(PemainList **head, Queue *q) {
+    const char *namaPemain[] = {"Pemain 1", "Pemain 2", "Pemain 3", "Pemain 4", "Pemain 5"};
+
+    PemainList *current = NULL;
+    PemainList *Next = NULL;
+
+    for (int i = 0; i < 4; i++){
+        current = (PemainList *)malloc(sizeof(PemainList));
+        if (curr == NULL) {
+            printf("Gagal mengalokasikan memori.\n");
+            return;
+    }
+}
+}
 
 void InitGiliran(Queue *q, int jumlahPemain) {
     CreateQueue(q);
@@ -156,4 +170,50 @@ void TampilkanDaftarPemain(Queue q) {
         current = current->next;
     }
     printf("Total pemain: %d\n", count);
+}
+
+void skipPlayer(Queue *q, int jumlahPemain) {
+    if (is_Empty(*q)) {
+        printf("Tidak ada pemain dalam antrian.\n");
+        return;
+    }
+
+    int skipCount;
+    printf("Masukkan jumlah pemain yang ingin dilewati: ");
+    scanf("%d", &skipCount);
+    getchar(); // Clear newline character from input buffer
+
+    if (skipCount < 0 || skipCount >= jumlahPemain) {
+        printf("Jumlah pemain yang ingin dilewati tidak valid.\n");
+        return;
+    }
+
+    for (int i = 0; i < skipCount; i++) {
+        PemainList pemainSekarang;
+        deQueue(q, &pemainSekarang.info);
+        EnQueue(q, pemainSekarang.info);
+    }
+    printf("Giliran telah dilewati sebanyak %d kali.\n", skipCount);
+}
+void reversePlayer (Queue *q){
+    if (is_Empty(*q)) {
+        printf("Tidak ada pemain dalam antrian.\n");
+        return;
+    }
+
+    addresspemain prev = NULL;
+    addresspemain current = q->Front;
+    addresspemain next = NULL;
+
+    q->Rear = q->Front; 
+
+    while (current != NULL) {
+        next = current->next; 
+        current->next = prev; 
+        prev = current; 
+        current = next; 
+    }
+
+    q->Front = prev; 
+    printf("Antrian pemain telah dibalik.\n");
 }

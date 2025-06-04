@@ -43,4 +43,10 @@ void PrintPlayerList(PemainList *head);
 
 void TampilkanDaftarPemain(Queue q);
 // Fungsi untuk menampilkan daftar pemain yang ada dalam queue
+
+void skipPlayer(Queue *q, int jumlahPemain);
+// Fungsi untuk melewati giliran pemain jika tidak ada pemain yang bermain
+
+void reversePlayer(Queue *q);
+// Fungsi untuk membalik urutan giliran pemain dalam queue
 #endif
