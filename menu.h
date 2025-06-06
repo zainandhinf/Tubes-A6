@@ -9,7 +9,7 @@ void startProgram();
 // tampilan awal program saat di jalankan
 void menuPlay();
 // tampilan menu play
-// void menuInfo();
+void menuInfo();
 // tampilan menu info untuk how to play
 void backToMenu();
 void menuPemain();  

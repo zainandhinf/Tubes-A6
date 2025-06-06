@@ -39,7 +39,7 @@ void startProgram(){
                 menuPlay(); 
                 break;
             case 2:
-                // menuInfo();
+                menuInfo();
                 break;
             case 3: 
                 runing = false;
@@ -56,6 +56,7 @@ void menuPlay(){
     int sub;
     bool stay = true;
     int jumlahPemain;
+    static PemainList *head = NULL;
 
     while (stay){
         system("cls");
@@ -65,7 +66,7 @@ void menuPlay(){
         printf("||     MMMM  MMMM    EEE        NNNNN NNN    UUU   UUU     ||\n");
         printf("||     MMMMMMMMMM    EEEEEEE    NNNNNNNNN    UUU   UUU     ||\n");
         printf("||     MMM MM MMM    EEE        NNN NNNNN    UUUU UUUU     ||\n");
-        printf("||     MMM    MMM    EEEEEEE    NNN   NNN     UUUUUUU      ||\n");   
+        printf("||     MMM    MMM    EEEEEEE    NNN   NNN     OOOOOO      ||\n");   
         printf("||                                                         ||\n");
         printf("=============================================================\n");
         printf("\n                     Silahkan pilih                      \n\n");
@@ -78,7 +79,12 @@ void menuPlay(){
 
         switch (sub) {
             case 1:
-                TampilkanDaftarPemain(q);
+                if (!pemainSudahDiinput) {
+                    initPlayer(&head, &q);     
+                    InitGiliran(&q, head);      
+                    pemainSudahDiinput = true;
+                }
+                TampilkanDaftarPemain(q);         
                 break;  
             case 2:
                 printf("Memulai permainan... \n");
@@ -92,6 +98,34 @@ void menuPlay(){
                 break;
         }
     }
+}
+
+void menuInfo(){
+    system("cls");
+    printf("=============================================================\n");
+    printf("||                                                         ||\n");
+    printf("||     MMM    NNN   NNN    FFFFFFF     OOOOOOO             ||\n");
+    printf("||     MMM    NNNNN NNN    FFF        OOO   OOO            ||\n");
+    printf("||     MMM    NNNNNNNNN    FFFFFFF    OOO   OOO            ||\n");
+    printf("||     MMM    NNN NNNNN    FFF        OOO   OOO            ||\n");
+    printf("||     MMM    NNN   NNN    FFF         OOOOOOO             ||\n");   
+    printf("||                                                         ||\n");
+    printf("=============================================================\n");
+    
+    printf("\n                     Cara Bermain                         \n\n");
+    
+    printf("1. Setiap pemain akan mendapatkan 7 kartu pada awal permainan.\n");
+    printf("2. Pemain dapat memainkan kartu yang sesuai dengan warna atau angka kartu di atas tumpukan buang;\n");
+    printf("3. Jika tidak ada kartu yang bisa dimainkan, pemain harus menarik kartu dari deck;\n");
+    printf("4. Pemain harus berteriak 'UNO' ketika hanya memiliki satu kartu tersisa;\n");
+    printf("5. Pemain yang berhasil menghabiskan semua kartunya akan menjadi pemenang;\n");
+    printf("6. Skip untuk  melewati giliran pemain; \n");
+    printf("7. Reverse untuk membalik urutan giliran pemain; \n");
+    printf("8. Kartu Wild dapat dimainkan kapan saja dan memungkinkan pemain untuk memilih warna yang ingin dimainkan;\n");
+    printf("9. Kartu wild draw four dapat dimainkan kapan saja");
+    printf("10. Kartu draw two dapat dimainkan jika pemain sebelumnya memainkan kartu dengan warna yang sama,\n    dan pemain berikutnya harus menarik dua kartu dari deck.\n");
+
+    backToMenu();
 }
 void backToMenu (){
     int pilihan;
