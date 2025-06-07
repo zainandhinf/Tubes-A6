@@ -36,6 +36,28 @@ typedef struct KartuBTree {
     int height;
 } KartuBTree;
 
+typedef struct KartuNBTree {
+    Kartu card;
+    struct KartuNBTree* firstson;
+    struct KartuNBTree* nextbrother;
+    struct KartuNBTree* parent;
+} KartuNBTree;
+
+typedef struct KartuListNode {
+    Kartu card;
+    struct KartuListNode* next;
+} KartuListNode;
+
+// typedef struct {
+//     KartuListNode* first;
+// } KartuList;
+
+typedef struct RecommendationPath {
+    KartuListNode* head;
+    KartuListNode* tail;
+    struct RecommendationPath* next;
+} RecommendationPath;
+
 typedef struct  PemainList *addresspemain;
 
 typedef struct Pemain {

@@ -23,5 +23,7 @@ int getBalance(KartuBTree *N);
 int compareKartu(Kartu a, Kartu b);
 KartuBTree *insert(KartuBTree *node, Kartu kartu);
 void inOrder(KartuBTree *root);
+KartuBTree* deleteNode(KartuBTree* root, Kartu kartu);
+KartuBTree* minValueNode(KartuBTree* node);
 
 #endif

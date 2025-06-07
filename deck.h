@@ -38,6 +38,7 @@ void RefillDeck(List *deck, Stack *discard);
 // Saat deck habis, isi ulang deck dari discard pile kecuali kartu paling atas
 int CountStack(Stack s);
 // Menghitung jumlah kartu di dalam deck
+void PushDiscard(Stack *s, infotype kartu);
 
 
 #endif

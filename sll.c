@@ -68,7 +68,7 @@ address Search(List L, infotype X)
 	/* algoritma */
 	P = First(L);
     while (P != Nil) {
-        if (IsKartuEqual(Info(P), X)) {
+        if (compareCards(Info(P), X, COMPARE_EQUAL)) {
             return P;
         }
         P = Next(P);
@@ -117,7 +117,7 @@ address SearchPrec(List L, infotype X)
 	P = First(L);
 	while ((P != Nil) && (!found))
 	{
-		if (IsKartuEqual(Info(P), X))
+		if (compareCards(Info(P), X, COMPARE_EQUAL))
 		{
 			found = true;
 		}
@@ -312,7 +312,7 @@ void DelP(List *L, infotype X)
 	/* Algoritma */
 
 	P = First(*L), Prec = Nil;
-	while (P != Nil && !IsKartuEqual(Info(P), X))
+	while (P != Nil && !compareCards(Info(P), X, COMPARE_EQUAL))
 	{
 		Prec = P;
 		P = Next(P);

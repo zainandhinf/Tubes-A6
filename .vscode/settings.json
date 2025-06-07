@@ -3,7 +3,8 @@
     "*.embeddedhtml": "html",
     "sll.H": "cpp",
     "boolean.h": "c",
-    "BOOLEAN.H": "cpp"
+    "BOOLEAN.H": "cpp",
+    "typeinfo": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
