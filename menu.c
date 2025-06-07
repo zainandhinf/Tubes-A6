@@ -15,6 +15,7 @@ void startProgram(){
     CreateQueue(&q); 
 
     while (runing){
+        system("cls");
         printf("\n");
         printf("=============================================================\n");
         printf("||                                                         ||\n");
