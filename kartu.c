@@ -110,3 +110,46 @@ void TampilkanKartuPemain(PemainList pemain) {
     printf("Daftar kartu:\n");
     inOrder(pemain.root);
 }
+
+void kartuSkip (Queue *q, int jumlahPemain,int skipCount) {
+    if (is_Empty(*q)) {
+        printf("Tidak ada pemain dalam antrian.\n");
+        return;
+    }
+
+    if (skipCount < 0 || skipCount >= jumlahPemain) {
+        printf("Jumlah pemain yang ingin dilewati tidak valid.\n");
+        return;
+    }
+
+    for (int i = 0; i < skipCount; i++) {
+        PemainList pemainSekarang;
+        deQueue(q, &pemainSekarang.info);
+        EnQueue(q, pemainSekarang.info);
+    }
+    printf("Giliran telah dilewati sebanyak %d kali.\n", skipCount);
+}
+
+
+void kartuReverse (Queue *q){
+    if (is_Empty(*q)) {
+        printf("Tidak ada pemain dalam antrian.\n");
+        return;
+    }
+
+    addresspemain prev = NULL;
+    addresspemain current = q->Front;
+    addresspemain next = NULL;
+
+    q->Rear = q->Front; 
+
+    while (current != NULL) {
+        next = current->next; 
+        current->next = prev; 
+        prev = current; 
+        current = next; 
+    }
+
+    q->Front = prev; 
+    printf("Antrian pemain telah dibalik.\n");
+}

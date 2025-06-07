@@ -11,7 +11,7 @@ void initPlayer(PemainList **head, Queue *q);
 
 void InitGiliran(Queue *q, PemainList *head);
 // Fungsi untuk menginisialisasi giliran pemain
-// dengan memasukkan pemain ke dalam queue
+// dengan memasukkan pemain ke dalam queuec
 
 void NextGiliran(Queue *q);
 // fungsi untuk mengubah giliran pemain
@@ -46,9 +46,4 @@ void PrintPlayerList(PemainList *head);
 void TampilkanDaftarPemain(Queue q);
 // Fungsi untuk menampilkan daftar pemain yang ada dalam queue
 
-void skipPlayer(Queue *q, int jumlahPemain);
-// Fungsi untuk melewati giliran pemain jika tidak ada pemain yang bermain
-
-void reversePlayer(Queue *q);
-// Fungsi untuk membalik urutan giliran pemain dalam queue
 #endif

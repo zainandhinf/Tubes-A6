@@ -63,6 +63,7 @@ void CreatePlayerList(PemainList **head){
 PemainList *AlokasiPlayer(const char *nama){
     PemainList *pemainBaru = (PemainList *)malloc(sizeof(PemainList));
     if (pemainBaru != NULL){
+        
         strncpy(pemainBaru->info.nama, nama, sizeof(pemainBaru->info.nama)-1);
         pemainBaru->info.nama[sizeof(pemainBaru->info.nama) - 1] = '\0';
         pemainBaru->info.jumlahKartu = 0;
@@ -171,48 +172,4 @@ void TampilkanDaftarPemain(Queue q) {
     printf("Total pemain: %d\n", count);
 }
 
-void skipPlayer(Queue *q, int jumlahPemain) {
-    if (is_Empty(*q)) {
-        printf("Tidak ada pemain dalam antrian.\n");
-        return;
-    }
 
-    int skipCount;
-    printf("Masukkan jumlah pemain yang ingin dilewati: ");
-    scanf("%d", &skipCount);
-    getchar(); // Clear newline character from input buffer
-
-    if (skipCount < 0 || skipCount >= jumlahPemain) {
-        printf("Jumlah pemain yang ingin dilewati tidak valid.\n");
-        return;
-    }
-
-    for (int i = 0; i < skipCount; i++) {
-        PemainList pemainSekarang;
-        deQueue(q, &pemainSekarang.info);
-        EnQueue(q, pemainSekarang.info);
-    }
-    printf("Giliran telah dilewati sebanyak %d kali.\n", skipCount);
-}
-void reversePlayer (Queue *q){
-    if (is_Empty(*q)) {
-        printf("Tidak ada pemain dalam antrian.\n");
-        return;
-    }
-
-    addresspemain prev = NULL;
-    addresspemain current = q->Front;
-    addresspemain next = NULL;
-
-    q->Rear = q->Front; 
-
-    while (current != NULL) {
-        next = current->next; 
-        current->next = prev; 
-        prev = current; 
-        current = next; 
-    }
-
-    q->Front = prev; 
-    printf("Antrian pemain telah dibalik.\n");
-}
