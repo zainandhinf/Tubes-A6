@@ -6,36 +6,33 @@
 #include "player.h"
 
 void initPlayer(PemainList **head, Queue *q) {
-    const char *namaPemain[] = {"Pemain 1", "Pemain 2", "Pemain 3", "Pemain 4", "Pemain 5"};
+    const char *namaPemain[] = {"Pemain 1", "Pemain 2", "Pemain 3", "Pemain 4"};
 
-    PemainList *current = NULL;
-    PemainList *Next = NULL;
+    *head = NULL;
 
-    for (int i = 0; i < 4; i++){
-        current = (PemainList *)malloc(sizeof(PemainList));
-        if (curr == NULL) {
-            printf("Gagal mengalokasikan memori.\n");
-            return;
+    for (int i = 0; i < 4; i++) {
+        PemainList *pemainBaru = AlokasiPlayer(namaPemain[i]);
+        InsertPlayerFirst(head, pemainBaru);
     }
-}
+
+    printf("Inisialisasi 4 pemain selesai.\n");
 }
 
-void InitGiliran(Queue *q, int jumlahPemain) {
+void InitGiliran(Queue *q, PemainList *head ) {
     CreateQueue(q);
 
-    getchar();
+    PemainList *current = head;
+    while (current != NULL) {
+        Pemain pemain;
+        strncpy(pemain.nama, current->info.nama, sizeof(pemain.nama) - 1);
+        pemain.nama[sizeof(pemain.nama) - 1] = '\0';
+        pemain.jumlahKartu = current->info.jumlahKartu;
 
-    for (int i = 0; i < jumlahPemain; i++) {
-        Pemain pemainBaru;
-
-        printf("\nMasukkan nama pemain ke-%d: ", i + 1);
-        fgets(pemainBaru.nama, sizeof(pemainBaru.nama), stdin);
-        pemainBaru.nama[strcspn(pemainBaru.nama, "\n")] = 0; 
-
-        pemainBaru.jumlahKartu = 0;
-        EnQueue(q, pemainBaru);
-        printf("Pemain %s berhasil dimasukkan\n", pemainBaru.nama);
+        EnQueue(q, pemain);
+        current = current->next;
     }
+
+    printf("Giliran pemain berhasil diinisialisasi dari daftar pemain.\n");
 }
 
 void NextGiliran(Queue *q){
@@ -70,7 +67,7 @@ PemainList *AlokasiPlayer(const char *nama){
         pemainBaru->info.nama[sizeof(pemainBaru->info.nama) - 1] = '\0';
         pemainBaru->info.jumlahKartu = 0;
         pemainBaru->next = NULL;
-        printf("pemain '%s' berhasil di alokasikan \n", pemainBaru->info.nama);
+        // printf("pemain '%s' berhasil di alokasikan \n", pemainBaru->info.nama);
     } else {
         printf("gagal mengalokasikan pemain \n");
     }
@@ -88,12 +85,14 @@ boolean PlayerListEmpty(PemainList *head){
     return (head == NULL);
 }
 void InsertPlayerFirst(PemainList **head, PemainList *P){
-    if (P != NULL){
-        P->next = *head;
+    if (*head == NULL) {
         *head = P;
-        printf("pemain berhasil di masukkan \n");
     } else {
-        printf("gagal memasukkan pemain ke dalam list \n");
+        PemainList *current = *head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = P;
     }
 }
 PemainList *SearchPlayer(PemainList *head, const char *nama){

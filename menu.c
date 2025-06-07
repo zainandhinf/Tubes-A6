@@ -79,12 +79,14 @@ void menuPlay(){
 
         switch (sub) {
             case 1:
+                system("cls");
                 if (!pemainSudahDiinput) {
                     initPlayer(&head, &q);     
                     InitGiliran(&q, head);      
                     pemainSudahDiinput = true;
                 }
-                TampilkanDaftarPemain(q);         
+                TampilkanDaftarPemain(q);
+                backToMenu();
                 break;  
             case 2:
                 printf("Memulai permainan... \n");
@@ -95,6 +97,7 @@ void menuPlay(){
                 break;
             default:
                 printf("Pilihan tidak valid. Silakan coba lagi. \n");
+                getchar(); 
                 break;
         }
     }

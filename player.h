@@ -5,9 +5,11 @@
 #include "sll.h"
 #include "queue.h"
 
+void initPlayer(PemainList **head, Queue *q);
+// Fungsi untuk menginisialisasi list pemain dan queue
+// dengan memasukkan pemain ke dalam list dan queue
 
-
-void InitGiliran(Queue *q, int jumlahPemain);
+void InitGiliran(Queue *q, PemainList *head);
 // Fungsi untuk menginisialisasi giliran pemain
 // dengan memasukkan pemain ke dalam queue
 
