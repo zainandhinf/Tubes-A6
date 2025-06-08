@@ -4,42 +4,67 @@
 #include <string.h>
 #include <stdbool.h>
 #include "player.h"
+#include "avl.h"
 
-void InitGiliran(Queue *q, int jumlahPemain){
-    CreateQueue(q);
-    for (int i = 0; i < jumlahPemain; i++){
-        
-        Pemain pemainBaru;
-        printf("Masukkan nama pemain %d: ", i + 1);
-        fgets(pemainBaru.nama, sizeof(pemainBaru.nama), stdin);
-        pemainBaru.nama[strcspn(pemainBaru.nama, "\n")] = 0;
-        pemainBaru.jumlahKartu = 0;
-        pemainBaru.sudahUndoRedo = 0;
-        EnQueue(q, pemainBaru);
-        printf("Pemain Berhasil di Masukkan \n", pemainBaru.nama);
+void initPlayer(PemainList **head, Queue *q) {
+    int i;
+    const char *namaPemain[] = {"Pemain 1", "Pemain 2", "Pemain 3", "Pemain 4"};
+
+    *head = NULL;
+
+    for (i = 0; i < 4; i++) {
+        PemainList *pemainBaru = AlokasiPlayer(namaPemain[i]);
+        InsertPlayerFirst(head, pemainBaru);
     }
+
+    printf("Inisialisasi 4 pemain selesai.\n");
 }
+
+void InitGiliran(Queue *q, PemainList *head ) {
+    CreateQueue(q);
+
+    PemainList *current = head;
+    while (current != NULL) {
+        Pemain pemain;
+        strncpy(pemain.nama, current->info.nama, sizeof(pemain.nama) - 1);
+        pemain.nama[sizeof(pemain.nama) - 1] = '\0';
+        pemain.jumlahKartu = current->info.jumlahKartu;
+
+        EnQueue(q, pemain);
+        current = current->next;
+    }
+
+    printf("Giliran pemain berhasil diinisialisasi dari daftar pemain.\n");
+}
+
 void NextGiliran(Queue *q){
     if (is_Empty(*q)){
-        printf("tidak ada pemain dalam antrian \n");
+        printf("Tidak ada pemain dalam antrian \n");
     }
     PemainList pemainSekarang;
     deQueue(q, &pemainSekarang.info);
     EnQueue(q, pemainSekarang.info);
-    printf("giliran telah berpindah \n");
 }
-Pemain *CurrentPlayer(Queue *q){
+// Pemain *CurrentPlayer(Queue *q){
+//     if(is_Empty(*q)){
+//         static Pemain playerKosong;
+//         strcpy(playerKosong.nama, "tidak ada player \n");
+//         playerKosong.jumlahKartu = 0;
+//         printf("giliran pemain kosong \n");
+//         return &playerKosong;
+//     } else{
+//         return &q->Front->info;
+//     }
+//     return 0; 
+// }
+
+PemainList *CurrentPlayer(Queue *q){
     if(is_Empty(*q)){
-        static Pemain playerKosong;
-        strcpy(playerKosong.nama, "tidak ada player \n");
-        playerKosong.jumlahKartu = 0;
-        playerKosong.sudahUndoRedo = 0;
         printf("giliran pemain kosong \n");
-        return &playerKosong;
+        return NULL;
     } else{
-        return &q->Front->info;
+        return q->Front; 
     }
-    return 0; 
 }
 void CreatePlayerList(PemainList **head){
     *head = NULL;
@@ -48,12 +73,12 @@ void CreatePlayerList(PemainList **head){
 PemainList *AlokasiPlayer(const char *nama){
     PemainList *pemainBaru = (PemainList *)malloc(sizeof(PemainList));
     if (pemainBaru != NULL){
+        
         strncpy(pemainBaru->info.nama, nama, sizeof(pemainBaru->info.nama)-1);
         pemainBaru->info.nama[sizeof(pemainBaru->info.nama) - 1] = '\0';
         pemainBaru->info.jumlahKartu = 0;
-        pemainBaru->info.sudahUndoRedo = 0;
         pemainBaru->next = NULL;
-        printf("pemain '%s' berhasil di alokasikan \n", pemainBaru->info.nama);
+        // printf("pemain '%s' berhasil di alokasikan \n", pemainBaru->info.nama);
     } else {
         printf("gagal mengalokasikan pemain \n");
     }
@@ -71,12 +96,14 @@ boolean PlayerListEmpty(PemainList *head){
     return (head == NULL);
 }
 void InsertPlayerFirst(PemainList **head, PemainList *P){
-    if (P != NULL){
-        P->next = *head;
+    if (*head == NULL) {
         *head = P;
-        printf("pemain berhasil di masukkan \n");
     } else {
-        printf("gagal memasukkan pemain ke dalam list \n");
+        PemainList *current = *head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = P;
     }
 }
 PemainList *SearchPlayer(PemainList *head, const char *nama){
@@ -91,29 +118,42 @@ PemainList *SearchPlayer(PemainList *head, const char *nama){
     printf("pemain '%s' tidak di temukan", nama);
     return NULL;
 }
-void DeletePlayer(PemainList **head, const char *nama, Queue *q){
-    PemainList *currentplayer = *head;
-    PemainList *prev = NULL;
+void DeletePlayer(PemainList **head, Queue *q){
+    // PemainList *currentplayer = *head;
+    // PemainList *prev = NULL;
 
-    if ((CurrentPlayer(q)!= NULL) && (strcmp(CurrentPlayer(q)->nama,nama)==0) ){
-        *head = currentplayer->next;
-        DealokasiPlayer(currentplayer);
-        printf("pemain '%s' berhasil di hapus \n", nama);
-        return;
+    // if ((CurrentPlayer(q)!= NULL) && (strcmp(CurrentPlayer(q)->info.nama,nama)==0) ){
+    //     *head = currentplayer->next;
+    //     DealokasiPlayer(currentplayer);
+    //     printf("pemain '%s' berhasil di hapus \n", nama);
+    //     return;
+    // }
+    // while (currentplayer != NULL && strcmp(currentplayer->info.nama, nama) != 0) {
+    //     prev = currentplayer;
+    //     currentplayer = currentplayer->next;
+    // }
+    // if (currentplayer != NULL) {
+    //     prev->next = currentplayer->next;
+    //     DealokasiPlayer(currentplayer);
+    //     printf("pemain '%s' berhasil di hapus \n", nama);
+    // } else {
+    //     printf("pemain '%s' tidak di temukan \n", nama);
+    // }
+    while (*head != NULL) {
+        PemainList *temp = *head;
+        *head = (*head)->next;
+        // Hapus tree kartu pemain jika perlu
+        deleteTree(temp->root);
+        free(temp);
     }
-    while (currentplayer != NULL && strcmp(currentplayer->info.nama, nama) != 0) {
-        prev = currentplayer;
-        currentplayer = currentplayer->next;
-    }
-    if (currentplayer != NULL) {
-        prev->next = currentplayer->next;
-        DealokasiPlayer(currentplayer);
-        printf("pemain '%s' berhasil di hapus \n", nama);
-    } else {
-        printf("pemain '%s' tidak di temukan \n", nama);
-    }
-
+    
+    // Reset queue
+    CreateQueue(q);
+    
+    // Reset flag
+    pemainSudahDiinput = false;
 }
+
 void PrintPlayerList(PemainList *head){
     PemainList *currentplayer = head;
     if (PlayerListEmpty(head)) {
@@ -122,11 +162,37 @@ void PrintPlayerList(PemainList *head){
     }
     printf("List Pemain:\n");
     while (currentplayer != NULL) {
-        printf("Nama: %s, Jumlah Kartu: %d, Sudah Undo/Redo: %d\n", 
-        currentplayer->info.nama, 
-        currentplayer->info.jumlahKartu, 
-        currentplayer->info.sudahUndoRedo);
+        printf("Nama: %s, Jumlah Kartu: %d\n", 
+                currentplayer->info.nama, 
+                currentplayer->info.jumlahKartu);
         currentplayer = currentplayer->next;
     }
 }
+
+void TampilkanDaftarPemain(Queue q) {
+    if (is_Empty(q)) {
+        printf("Belum ada pemain yang didaftarkan.\n");
+        return;
+    }
+
+    int count = 0;
+    addresspemain current = q.Front;
+    printf("=============================================================\n");
+    printf("||                                                         ||\n");
+    printf("||     MMM    MMM    EEEEEEE    NNN   NNN    UUU   UUU     ||\n");
+    printf("||     MMMM  MMMM    EEE        NNNNN NNN    UUU   UUU     ||\n");
+    printf("||     MMMMMMMMMM    EEEEEEE    NNNNNNNNN    UUU   UUU     ||\n");
+    printf("||     MMM MM MMM    EEE        NNN NNNNN    UUUU UUUU     ||\n");
+    printf("||     MMM    MMM    EEEEEEE    NNN   NNN     UUUUUUU      ||\n");   
+    printf("||                                                         ||\n");
+    printf("=============================================================\n");
+    printf("\n                     Daftar Pemain                         \n");
+    while (current != NULL) {
+        count++;
+        printf("%d. %s\n", count, current->info.nama);
+        current = current->next;
+    }
+    printf("Total pemain: %d\n", count);
+}
+
 

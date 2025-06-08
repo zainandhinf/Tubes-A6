@@ -8,8 +8,6 @@
 // #include "player.h"
 #define NBElement 10
 
-
-
 typedef struct
 {
     addresspemain Front;

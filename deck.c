@@ -5,6 +5,11 @@ void InitDeck(Stack *deck) {
     InitKartu(&kartu);
     ShuffleDeck(&kartu);
 
+    if (ListEmpty(kartu)) {
+        printf("ERROR: Deck kartu gagal diinisialisasi\n");
+        return;
+    }
+
     CreateEmpty(deck);
 
     address p = First(kartu);
@@ -121,17 +126,17 @@ int CountStack(Stack s) {
     return count;
 }
 
-void DrawCard(Stack *deck, KartuBTree **hand) {
+void DrawCard(Stack *deck, PemainList *pemain) {
     if (IsEmpty(*deck)) {
-        printf("Deck kosong! Tidak bisa draw kartu.\n");
+        printf("Deck kosong! Tidak bisa draw kartu\n");
         return;
     }
 
     Kartu kartu;
     Pop(deck, &kartu);
-    *hand = insert(*hand, kartu);
+    TambahKartuKePemain(pemain, kartu);
 
-    printf("Pemain menarik kartu: ");
+    printf("Pemain mengambil kartu: ");
     switch (kartu.jenis) {
         case ANGKA: printf("%d ", kartu.angka); break;
         case SKIP: printf("SKIP "); break;
@@ -140,8 +145,8 @@ void DrawCard(Stack *deck, KartuBTree **hand) {
         case WILD: printf("WILD "); break;
         case WILD_DRAW4: printf("WILD DRAW 4 "); break;
     }
-    printf("[");
 
+    printf("[");
     switch (kartu.warna) {
         case MERAH: printf("MERAH"); break;
         case HIJAU: printf("HIJAU"); break;
@@ -150,6 +155,44 @@ void DrawCard(Stack *deck, KartuBTree **hand) {
         case HITAM: printf("HITAM"); break;
     }
     printf("]\n");
+}
+
+void DrawCardWild(Stack *deck, PemainList *pemain) {
+    if (IsEmpty(*deck)) {
+        printf("Deck kosong! Tidak bisa draw kartu\n");
+        return;
+    }
+
+    Kartu kartu;
+    Pop(deck, &kartu);
+    TambahKartuKePemain(pemain, kartu);
+}
+
+void RefillDeck(List *deck, Stack *discard) {
+    if (IsEmpty(*discard)) {
+        printf("Tidak bisa refill\n");
+        return;
+    }
+
+    Kartu topCard;
+    Pop(discard, &topCard);
+    Stack temp;
+    CreateEmpty(&temp);
+
+    Kartu tempCard;
+    while (!IsEmpty(*discard)) {
+        Pop(discard, &tempCard);
+        Push(&temp, tempCard);
+    }
+
+    while (!IsEmpty(temp)) {
+        Pop(&temp, &tempCard);
+        InsVLast(deck, tempCard);
+    }
+
+    Push(discard, topCard);
+
+    ShuffleDeck(deck);
 }
 
 void PushDiscard(Stack *s, infotype kartu) {

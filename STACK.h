@@ -12,7 +12,7 @@
 
 /* Null adalah stack dengan elemen kosong. */
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP bertype address (Head)*/
-typedef address Stack ;
+typedef address Stack;
 
 // typedef struct {
 //     address Top;

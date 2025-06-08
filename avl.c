@@ -243,6 +243,14 @@ KartuBTree* minValueNode(KartuBTree* node) {
     return current;
 }
 
+void deleteTree(KartuBTree *node) {
+    if (node == NULL) return;
+    
+    deleteTree(node->left);
+    deleteTree(node->right);
+    free(node);
+}
+
 
 // /* Driver program to test above function*/
 // int main()

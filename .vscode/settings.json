@@ -4,7 +4,9 @@
     "sll.H": "cpp",
     "boolean.h": "c",
     "BOOLEAN.H": "cpp",
-    "typeinfo": "c"
+    "typeinfo": "c",
+    "stack.h": "c",
+    "uno.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

@@ -3,6 +3,7 @@
 #include <time.h>
 #include "kartu.h"
 
+/* Inisialisasi & Struktur Data Kartu */
 KartuNBTree *createNBTreeNode(Kartu card)
 {
     KartuNBTree *newNode = (KartuNBTree *)malloc(sizeof(KartuNBTree));
@@ -12,7 +13,6 @@ KartuNBTree *createNBTreeNode(Kartu card)
     newNode->parent = NULL;
     return newNode;
 }
-
 void InitKartu(List *kartu)
 {
     CreateList(kartu);
@@ -80,6 +80,8 @@ void InitKartu(List *kartu)
     }
 }
 
+
+/* Komparasi Kartu */
 boolean compareCards(Kartu a, Kartu b, CompareMode mode)
 {
     if (mode == COMPARE_PLAYABLE && b.warna == HITAM)
@@ -126,65 +128,52 @@ boolean compareCards(Kartu a, Kartu b, CompareMode mode)
     }
 }
 
-void BagiKartu(Stack *deck, PemainList pemain[])
-{
-    Kartu kartu;
-    int i, j;
 
-    for (i = 0; i < 4; i++)
+/* Manajemen Gameplay */ 
+void BagiKartu(Stack *deck, Queue *head)
+{
+    PemainList *current = head->Front;
+    Kartu kartu;
+    int i;
+
+    while (current != NULL)
     {
-        pemain[i].root = NULL;
-        pemain[i].info.jumlahKartu = 0;
+        current->root = NULL;
+        current->info.jumlahKartu = 0;
+        current = current->next;
     }
 
-    for (i = 0; i < 7; i++)
+    for (i = 0; i < 3; i++)
     {
-        for (j = 0; j < 4; j++)
+        current = head->Front;
+        while (current != NULL)
         {
             if (!IsEmpty(*deck))
             {
                 Pop(deck, &kartu);
-                TambahKartuKePemain(&pemain[j], kartu);
+                TambahKartuKePemain(current, kartu);
             }
+            current = current->next;
         }
     }
 }
-
-void TambahKartuKePemain(PemainList *pemain, Kartu kartu)
-{
+void TambahKartuKePemain(PemainList *pemain, Kartu kartu) {
     pemain->root = insert(pemain->root, kartu);
+    if (pemain->root == NULL) {
+        printf("Gagal menambahkan kartu ke pemain!\n");
+        return;
+    }
     pemain->info.jumlahKartu++;
 }
-
-void TampilkanKartuPemain(PemainList pemain)
-{
+void TampilkanKartuPemain(PemainList pemain) {
     printf("Jumlah kartu: %d\n", pemain.info.jumlahKartu);
-    printf("Daftar kartu:\n");
-    inOrder(pemain.root);
-}
-
-void addChild(KartuNBTree *parent, KartuNBTree *child)
-{
-    if (parent == NULL || child == NULL)
-        return;
-
-    child->parent = parent;
-
-    if (parent->firstson == NULL)
-    {
-        parent->firstson = child;
-    }
-    else
-    {
-        KartuNBTree *sibling = parent->firstson;
-        while (sibling->nextbrother != NULL)
-        {
-            sibling = sibling->nextbrother;
-        }
-        sibling->nextbrother = child;
+    if (pemain.info.jumlahKartu > 0) {
+        printf("Daftar kartu:\n");
+        inOrder(pemain.root);
+    } else {
+        printf("Pemain tidak memiliki kartu\n");
     }
 }
-
 void printCard(Kartu k)
 {
     switch (k.warna)
@@ -229,169 +218,6 @@ void printCard(Kartu k)
     }
     printf("\n");
 }
-
-KartuNBTree *buildRecommendations(Kartu topDiscard, KartuBTree *playerCards)
-{
-    KartuNBTree *root = createNBTreeNode(topDiscard);
-
-    findMatchingCards(root, playerCards);
-
-    return root;
-}
-
-void findMatchingCards(KartuNBTree *parent, KartuBTree *playerCards)
-{
-    if (playerCards == NULL)
-        return;
-
-    if (compareCards(parent->card, playerCards->info, COMPARE_PLAYABLE))
-    {
-        KartuNBTree *child = createNBTreeNode(playerCards->info);
-        addChild(parent, child);
-
-        findGroupMatches(child, playerCards->info, playerCards);
-    }
-
-    findMatchingCards(parent, playerCards->left);
-    findMatchingCards(parent, playerCards->right);
-}
-
-void findGroupMatches(KartuNBTree *node, Kartu matchPattern, KartuBTree *playerCards)
-{
-    if (playerCards == NULL)
-        return;
-
-    if (compareCards(matchPattern, playerCards->info, COMPARE_SAMETYPE) &&
-        !compareCards(matchPattern, playerCards->info, COMPARE_EQUAL))
-    {
-        KartuNBTree *sibling = createNBTreeNode(playerCards->info);
-
-        sibling->nextbrother = node->firstson;
-        node->firstson = sibling;
-        sibling->parent = node;
-    }
-
-    findGroupMatches(node, matchPattern, playerCards->left);
-    findGroupMatches(node, matchPattern, playerCards->right);
-}
-
-void printRecommendations(KartuNBTree *node, int depth)
-{
-    if (node == NULL)
-        return;
-
-    int i;
-
-    for (i = 0; i < depth; i++)
-    {
-        printf("  ");
-    }
-    printCard(node->card);
-
-    printRecommendations(node->firstson, depth + 1);
-
-    printRecommendations(node->nextbrother, depth);
-}
-
-void deleteNBTree(KartuNBTree *node)
-{
-    if (node == NULL)
-        return;
-
-    deleteNBTree(node->firstson);
-    deleteNBTree(node->nextbrother);
-    free(node);
-}
-
-void buildPaths(KartuNBTree *node, RecommendationPath **paths)
-{
-    if (node == NULL)
-        return;
-
-    if (node->firstson == NULL)
-    {
-        addPathFromLeaf(node, paths);
-    }
-
-    buildPaths(node->firstson, paths);
-    buildPaths(node->nextbrother, paths);
-}
-
-void printAllPaths(RecommendationPath *paths)
-{
-    int count = 1;
-    while (paths != NULL)
-    {
-        printf("Linked list %d: ", count++);
-        KartuListNode *current = paths->head;
-        while (current != NULL)
-        {
-            printCardNoNewline(current->card);
-            if (current->next != NULL)
-            {
-                printf(" -> ");
-            }
-            current = current->next;
-        }
-        printf("\n");
-        paths = paths->next;
-    }
-}
-
-void printRecommendationLists(KartuNBTree *root)
-{
-    if (root == NULL || root->firstson == NULL)
-    {
-        printf("Tidak ada rekomendasi.\n");
-        return;
-    }
-
-    RecommendationPath *paths = NULL;
-    buildPaths(root->firstson, &paths);
-    printAllPaths(paths);
-
-    RecommendationPath *currentPath = paths;
-    while (currentPath != NULL)
-    {
-        RecommendationPath *nextPath = currentPath->next;
-        KartuListNode *currentCard = currentPath->head;
-        while (currentCard != NULL)
-        {
-            KartuListNode *nextCard = currentCard->next;
-            free(currentCard);
-            currentCard = nextCard;
-        }
-        free(currentPath);
-        currentPath = nextPath;
-    }
-}
-
-void addPathFromLeaf(KartuNBTree *leaf, RecommendationPath **paths)
-{
-    KartuListNode *head = NULL;
-
-    KartuNBTree *current = leaf;
-    while (current->parent != NULL)
-    {
-        KartuListNode *newNode = (KartuListNode *)malloc(sizeof(KartuListNode));
-        newNode->card = current->card;
-        newNode->next = head;
-        head = newNode;
-        current = current->parent;
-    }
-
-    RecommendationPath *newPath = (RecommendationPath *)malloc(sizeof(RecommendationPath));
-    newPath->head = head;
-
-    KartuListNode *temp = head;
-    while (temp && temp->next != NULL)
-        temp = temp->next;
-    newPath->tail = temp;
-
-    newPath->next = *paths;
-    *paths = newPath;
-}
-
 void printCardNoNewline(Kartu k)
 {
     switch (k.warna)
@@ -434,20 +260,198 @@ void printCardNoNewline(Kartu k)
         printf("WILD_DRAW4");
         break;
     }
-    
 }
 
-int chooseRecommendation(RecommendationPath *paths)
+
+/* Rekomendasi Kartu Non Binary Tree */
+KartuNBTree *buildRecommendations(Kartu topDiscard, KartuBTree *playerCards)
+{
+    KartuNBTree *root = createNBTreeNode(topDiscard);
+
+    findMatchingCards(root, playerCards);
+
+    return root;
+}
+void addChild(KartuNBTree *parent, KartuNBTree *child)
+{
+    if (parent == NULL || child == NULL)
+        return;
+
+    child->parent = parent;
+
+    if (parent->firstson == NULL)
+    {
+        parent->firstson = child;
+    }
+    else
+    {
+        KartuNBTree *sibling = parent->firstson;
+        while (sibling->nextbrother != NULL)
+        {
+            sibling = sibling->nextbrother;
+        }
+        sibling->nextbrother = child;
+    }
+}
+void findMatchingCards(KartuNBTree *parent, KartuBTree *playerCards)
+{
+    if (playerCards == NULL)
+        return;
+
+    if (compareCards(parent->card, playerCards->info, COMPARE_PLAYABLE))
+    {
+        KartuNBTree *child = createNBTreeNode(playerCards->info);
+        addChild(parent, child);
+
+        findGroupMatches(child, playerCards->info, playerCards);
+    }
+
+    findMatchingCards(parent, playerCards->left);
+    findMatchingCards(parent, playerCards->right);
+}
+void findGroupMatches(KartuNBTree *node, Kartu matchPattern, KartuBTree *playerCards)
+{
+    if (playerCards == NULL)
+        return;
+
+    if (compareCards(matchPattern, playerCards->info, COMPARE_SAMETYPE) &&
+        !compareCards(matchPattern, playerCards->info, COMPARE_EQUAL))
+    {
+        KartuNBTree *sibling = createNBTreeNode(playerCards->info);
+
+        sibling->nextbrother = node->firstson;
+        node->firstson = sibling;
+        sibling->parent = node;
+    }
+
+    findGroupMatches(node, matchPattern, playerCards->left);
+    findGroupMatches(node, matchPattern, playerCards->right);
+}
+void printRecommendations(KartuNBTree *node, int depth)
+{
+    if (node == NULL)
+        return;
+
+    int i;
+
+    for (i = 0; i < depth; i++)
+    {
+        printf("  ");
+    }
+    printCard(node->card);
+
+    printRecommendations(node->firstson, depth + 1);
+
+    printRecommendations(node->nextbrother, depth);
+}
+void deleteNBTree(KartuNBTree *node)
+{
+    if (node == NULL)
+        return;
+
+    deleteNBTree(node->firstson);
+    deleteNBTree(node->nextbrother);
+    free(node);
+}
+
+
+/* Rekomendasi Kartu Linked List */
+void buildPaths(KartuNBTree *node, RecommendationList **paths)
+{
+    if (node == NULL)
+        return;
+
+    if (node->firstson == NULL)
+    {
+        addPathFromLeaf(node, paths);
+    }
+
+    buildPaths(node->firstson, paths);
+    buildPaths(node->nextbrother, paths);
+}
+void printAllPaths(RecommendationList *paths)
+{
+    int count = 1;
+    while (paths != NULL)
+    {
+        printf("Linked list %d: ", count++);
+        KartuList *current = paths->head;
+        while (current != NULL)
+        {
+            printCardNoNewline(current->card);
+            if (current->next != NULL)
+            {
+                printf(" -> ");
+            }
+            current = current->next;
+        }
+        printf("\n");
+        paths = paths->next;
+    }
+}
+void printRecommendationLists(KartuNBTree *root)
+{
+    if (root == NULL || root->firstson == NULL)
+    {
+        printf("Tidak ada rekomendasi.\n");
+        return;
+    }
+
+    RecommendationList *paths = NULL;
+    buildPaths(root->firstson, &paths);
+    printAllPaths(paths);
+
+    RecommendationList *currentPath = paths;
+    while (currentPath != NULL)
+    {
+        RecommendationList *nextPath = currentPath->next;
+        KartuList *currentCard = currentPath->head;
+        while (currentCard != NULL)
+        {
+            KartuList *nextCard = currentCard->next;
+            free(currentCard);
+            currentCard = nextCard;
+        }
+        free(currentPath);
+        currentPath = nextPath;
+    }
+}
+void addPathFromLeaf(KartuNBTree *leaf, RecommendationList **paths)
+{
+    KartuList *head = NULL;
+
+    KartuNBTree *current = leaf;
+    while (current->parent != NULL)
+    {
+        KartuList *newNode = (KartuList *)malloc(sizeof(KartuList));
+        newNode->card = current->card;
+        newNode->next = head;
+        head = newNode;
+        current = current->parent;
+    }
+
+    RecommendationList *newPath = (RecommendationList *)malloc(sizeof(RecommendationList));
+    newPath->head = head;
+
+    KartuList *temp = head;
+    while (temp && temp->next != NULL)
+        temp = temp->next;
+    newPath->tail = temp;
+
+    newPath->next = *paths;
+    *paths = newPath;
+}
+int chooseRecommendation(RecommendationList *paths)
 {
     int count = 1;
     int choice;
-    RecommendationPath *current = paths;
+    RecommendationList *current = paths;
 
     printf("\nPilih rekomendasi:\n");
     while (current != NULL)
     {
         printf("%d. ", count++);
-        KartuListNode *node = current->head;
+        KartuList *node = current->head;
         while (node != NULL)
         {
             printCardNoNewline(node->card);
@@ -465,11 +469,10 @@ int chooseRecommendation(RecommendationPath *paths)
     scanf("%d", &choice);
     return choice;
 }
-
-RecommendationPath *getSelectedPath(RecommendationPath *paths, int choice)
+RecommendationList *getSelectedPath(RecommendationList *paths, int choice)
 {
     int count = 1;
-    RecommendationPath *current = paths;
+    RecommendationList *current = paths;
 
     while (current != NULL && count < choice)
     {
@@ -479,10 +482,9 @@ RecommendationPath *getSelectedPath(RecommendationPath *paths, int choice)
 
     return current;
 }
-
 void playSelectedRecommendation(Stack *discardDeck, PemainList *player, KartuNBTree *recommendations)
 {
-    RecommendationPath *paths = NULL;
+    RecommendationList *paths = NULL;
     buildPaths(recommendations->firstson, &paths);
 
     if (paths == NULL)
@@ -492,7 +494,7 @@ void playSelectedRecommendation(Stack *discardDeck, PemainList *player, KartuNBT
     }
 
     int choice = chooseRecommendation(paths);
-    RecommendationPath *selectedPath = getSelectedPath(paths, choice);
+    RecommendationList *selectedPath = getSelectedPath(paths, choice);
 
     if (selectedPath == NULL || selectedPath->head == NULL)
     {
@@ -500,27 +502,265 @@ void playSelectedRecommendation(Stack *discardDeck, PemainList *player, KartuNBT
         return;
     }
 
-    KartuListNode *current = selectedPath->head;
+    KartuList *current = selectedPath->head;
     while (current != NULL)
     {
-        PushDiscard(discardDeck, current->card);
+        if (current->card.jenis == WILD || current->card.jenis == WILD_DRAW4) {
+            handleWildCard(discardDeck, current->card);
+        } else {
+            PushDiscard(discardDeck, current->card);
+        }
         player->root = deleteNode(player->root, current->card);
         player->info.jumlahKartu--;
         current = current->next;
     }
 
-    RecommendationPath *currentPath = paths;
+    RecommendationList *currentPath = paths;
     while (currentPath != NULL)
     {
-        RecommendationPath *nextPath = currentPath->next;
-        KartuListNode *currentCard = currentPath->head;
+        RecommendationList *nextPath = currentPath->next;
+        KartuList *currentCard = currentPath->head;
         while (currentCard != NULL)
         {
-            KartuListNode *nextCard = currentCard->next;
+            KartuList *nextCard = currentCard->next;
             free(currentCard);
             currentCard = nextCard;
         }
         free(currentPath);
         currentPath = nextPath;
+    }
+}
+
+
+/*  Efek Kartu Spesial */
+void kartuSkip(Queue *q, int jumlahPemain, int skipCount)
+{
+    if (is_Empty(*q))
+    {
+        printf("Tidak ada pemain dalam antrian.\n");
+        return;
+    }
+
+    int i;
+
+    if (skipCount < 0 || skipCount >= jumlahPemain)
+    {
+        printf("Jumlah pemain yang ingin dilewati tidak valid.\n");
+        return;
+    }
+
+    for (i = 0; i < skipCount; i++)
+    {
+        PemainList pemainSekarang;
+        deQueue(q, &pemainSekarang.info);
+        EnQueue(q, pemainSekarang.info);
+    }
+    printf("Giliran telah dilewati sebanyak %d kali.\n", skipCount);
+}
+void kartuReverse(Queue *q)
+{
+    // if (is_Empty(*q)) {
+    //     printf("Tidak ada pemain dalam antrian.\n");
+    //     return;
+    // }
+
+    // Pemain current = q->Front->info;
+
+    // addresspemain prev = NULL;
+    // addresspemain curr = q->Front;
+    // addresspemain next = NULL;
+    
+    // q->Rear = q->Front;
+    
+    // while (curr != NULL) {
+    //     next = curr->next;
+    //     curr->next = prev;
+    //     prev = curr;
+    //     curr = next;
+    // }
+    
+    // q->Front = prev;
+
+    // while (q->Front->info.nama != current.nama) {
+    //     Pemain temp;
+    //     deQueue(q, &temp);
+    //     EnQueue(q, temp);
+    // }
+    // // printf("Antrian pemain telah dibalik.\n");
+     if (is_Empty(*q))
+    {
+        printf("Tidak ada pemain dalam antrian.\n");
+        return;
+    }
+
+    addresspemain prev = NULL;
+    addresspemain current = q->Front;
+    addresspemain next = NULL;
+
+    q->Rear = q->Front;
+
+    while (current != NULL)
+    {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+
+    q->Front = prev;
+    printf("Antrian pemain telah dibalik.\n");
+}
+void handleWildCard(Stack *discardDeck, Kartu playedCard) {
+    if (playedCard.jenis == WILD || playedCard.jenis == WILD_DRAW4) {
+        printf("\nAnda memainkan kartu ");
+        printCardNoNewline(playedCard);
+        printf(". Pilih warna baru:\n");
+        printf("1. MERAH\n");
+        printf("2. HIJAU\n");
+        printf("3. BIRU\n");
+        printf("4. KUNING\n");
+        printf("Pilihan (1-4): ");
+
+        int choice;
+        do {
+            scanf("%d", &choice);
+            if (choice < 1 || choice > 4) {
+                printf("Pilihan tidak valid. Masukkan angka 1-4: ");
+            }
+        } while (choice < 1 || choice > 4);
+
+        switch (choice) {
+            case 1: playedCard.warna = MERAH; break;
+            case 2: playedCard.warna = HIJAU; break;
+            case 3: playedCard.warna = BIRU; break;
+            case 4: playedCard.warna = KUNING; break;
+        }
+
+        printf("Warna dipilih: ");
+        printCard(playedCard);
+        
+        PushDiscard(discardDeck, playedCard);
+    }
+}
+
+void handleCardEffect(Stack *discardDeck, Queue *turnQueue, PemainList *currentPlayer, Stack *deck)
+{
+    Kartu topCard = Top(*discardDeck);
+    int i;
+
+    switch (topCard.jenis)
+    {
+    case SKIP:
+        printf("Efek SKIP! Giliran pemain berikutnya dilewati.\n");
+        NextGiliran(turnQueue);
+        break;
+
+    case REVERSE:
+        printf("Efek REVERSE! Arah permainan dibalik.\n");
+        kartuReverse(turnQueue);
+        break;
+
+    case DRAW2:
+    case WILD_DRAW4:
+        printf("Efek %s! Pemain berikutnya mengambil %d kartu.\n", (topCard.jenis == DRAW2) ? "DRAW2" : "WILD_DRAW4", (topCard.jenis == DRAW2) ? 2 : 4);
+        NextGiliran(turnQueue);
+        PemainList *nextPlayer = CurrentPlayer(turnQueue);
+        for (i = 0; i < ((topCard.jenis == DRAW2) ? 2 : 4); i++)
+        {
+            DrawCardWild(deck, nextPlayer);
+        }
+        break;
+
+    default:
+        break;
+    }
+}
+
+void startGame(PemainList *players, Queue *turnQueue)
+{
+    Stack deck, discard;
+    InitDeck(&deck);
+
+    turnQueue->Front = players;
+    PemainList *last = players;
+    while (last->next != NULL)
+    {
+        last = last->next;
+    }
+    turnQueue->Rear = last;
+
+    // printf("Total kartu setelah inisialisasi: %d\n", CountStack(deck));
+    PrintPlayerList(players);
+    BagiKartu(&deck, turnQueue);
+
+    PemainList *currentPlayer = players;
+
+    InitDiscard(&deck, &discard);
+
+    bool gameRunning = true;
+
+    while (gameRunning)
+    {
+        currentPlayer = CurrentPlayer(turnQueue);
+
+        printf("\n=== Giliran %s ===\n", currentPlayer->info.nama);
+        printf("Kartu teratas di discard pile: ");
+        printCard(Top(discard));
+
+        printf("\nKartu di tangan:\n");
+        TampilkanKartuPemain(*currentPlayer);
+
+        KartuNBTree *recommendations = buildRecommendations(Top(discard), currentPlayer->root);
+
+        if (recommendations->firstson != NULL)
+        {
+            printf("\nRekomendasi kartu yang bisa dimainkan:\n");
+            printRecommendationLists(recommendations);
+
+            playSelectedRecommendation(&discard, currentPlayer, recommendations);
+
+            if (Top(discard).jenis == WILD || Top(discard).jenis == WILD_DRAW4)
+            {
+                printf("Warna aktif sekarang: ");
+                printCard(Top(discard));
+            }
+
+            handleCardEffect(&discard, turnQueue, currentPlayer, &deck);
+        }
+        else
+        {
+            printf("\nTidak ada kartu yang bisa dimainkan. Mengambil kartu dari deck...\n");
+            Sleep(3000);
+            DrawCard(&deck, currentPlayer);
+        }
+
+        checkWinCondition(turnQueue, &gameRunning);
+        if (!gameRunning)
+        {
+            printf("\n==================================\n");
+            printf("%s menang!\n", turnQueue->Front->info.nama);
+            printf("==================================\n");
+            backToMenu();
+        }
+
+        deleteNBTree(recommendations);
+
+        if (gameRunning)
+        {
+            printf("\nTekan Enter untuk lanjut ke pemain berikutnya...");
+            while (getchar() != '\n'); 
+            getchar();  
+            NextGiliran(turnQueue);
+        }
+        system("cls");
+    }
+}
+
+void checkWinCondition(Queue *turnQueue, bool *gameRunning)
+{
+    PemainList *currentPlayer = turnQueue->Front;
+    if (currentPlayer != NULL && currentPlayer->info.jumlahKartu == 0)
+    {
+        *gameRunning = false;
     }
 }
