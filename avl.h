@@ -25,5 +25,6 @@ KartuBTree *insert(KartuBTree *node, Kartu kartu);
 void inOrder(KartuBTree *root);
 KartuBTree* deleteNode(KartuBTree* root, Kartu kartu);
 KartuBTree* minValueNode(KartuBTree* node);
+void deleteTree(KartuBTree *node);
 
 #endif

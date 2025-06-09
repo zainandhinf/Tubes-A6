@@ -32,23 +32,28 @@ typedef struct Kartu{
     int angka;
     char efek;
 } Kartu;
+
 typedef Kartu infotype;
+
 typedef struct KartuBTree {
     Kartu info;
     struct KartuBTree *left;
     struct KartuBTree *right;
     int height;
 } KartuBTree;
+
 typedef struct KartuNBTree {
     Kartu card;
     struct KartuNBTree* firstson;
     struct KartuNBTree* nextbrother;
     struct KartuNBTree* parent;
 } KartuNBTree;
+
 typedef struct KartuList {
     Kartu card;
     struct KartuList* next;
 } KartuList;
+
 typedef struct RecommendationList {
     KartuList* head;
     KartuList* tail;
@@ -64,9 +69,14 @@ typedef struct Pemain {
 } Pemain;
 typedef struct PemainList {
     Pemain info;
-    struct KartuBTree *root;
     struct PemainList *next;
+    KartuBTree *root;
 } PemainList;
+
+typedef struct {
+    addresspemain Front;
+    addresspemain Rear;
+} Queue;
 
 void startProgram();
 // Tampilan awal program saat di jalankan

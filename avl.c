@@ -20,14 +20,17 @@ int max(int a, int b)
 
 /* Helper function that allocates a new node with the given key and
     NULL left and right pointers. */
-KartuBTree *newAvlTree(Kartu info)
-{
-    KartuBTree *node = (KartuBTree*)malloc(sizeof(KartuBTree));
-    node->info = info;
+KartuBTree* newAvlTree(Kartu kartu) {
+    KartuBTree* node = (KartuBTree*) malloc(sizeof(KartuBTree));
+    if (node == NULL) {
+        printf("Gagal alokasi node baru\n");
+        return NULL;
+    }
+    node->info = kartu;
     node->left = NULL;
     node->right = NULL;
-    node->height = 1; // new node is initially added at leaf
-    return (node);
+    node->height = 1;
+    return node;
 }
 
 // A utility function to right rotate subtree rooted with y
@@ -108,7 +111,6 @@ int compareKartu(Kartu a, Kartu b) {
 // with node and returns the new root of the subtree.
 KartuBTree *insert(KartuBTree *node, Kartu kartu)
 {
-    /* 1.  Perform the normal BST insertion */
     if (node == NULL)
         return (newAvlTree(kartu));
 
@@ -118,44 +120,34 @@ KartuBTree *insert(KartuBTree *node, Kartu kartu)
         node->left = insert(node->left, kartu);
     else if (comparison > 0)
         node->right = insert(node->right, kartu);
-    else // Equal keys are not allowed in BST
+    else
         return node;
 
-    /* 2. Update height of this ancestor node */
-    node->height = 1 + max(height(node->left),
-                           height(node->right));
-
-    /* 3. Get the balance factor of this ancestor
-          node to check whether this node became
-          unbalanced */
+    node->height = 1 + max(height(node->left), height(node->right));
     int balance = getBalance(node);
 
-    // If this node becomes unbalanced, then
-    // there are 4 cases
-
     // Left Left Case
-    if (balance > 1 && compareKartu(kartu, node->left->info) < 0)
+    if (balance > 1 && node->left != NULL && compareKartu(kartu, node->left->info) < 0)
         return rightRotate(node);
 
     // Right Right Case
-    if (balance < -1 && compareKartu(kartu, node->right->info) > 0)
+    if (balance < -1 && node->right != NULL && compareKartu(kartu, node->right->info) > 0)
         return leftRotate(node);
 
     // Left Right Case
-    if (balance > 1 && compareKartu(kartu, node->left->info) > 0)
+    if (balance > 1 && node->left != NULL && compareKartu(kartu, node->left->info) > 0)
     {
         node->left = leftRotate(node->left);
         return rightRotate(node);
     }
 
     // Right Left Case
-    if (balance < -1 && compareKartu(kartu, node->right->info) < 0)
+    if (balance < -1 && node->right != NULL && compareKartu(kartu, node->right->info) < 0)
     {
         node->right = rightRotate(node->right);
         return leftRotate(node);
     }
 
-    /* return the (unchanged) node pointer */
     return node;
 }
 
@@ -163,8 +155,12 @@ KartuBTree *insert(KartuBTree *node, Kartu kartu)
 // of the tree.
 // The function also prints height of every node
 void inOrder(KartuBTree *root)
-{
+{   
     if (root != NULL) {
+        if (root->left == root || root->right == root) {
+            printf("Node memiliki pointer ke dirinya sendiri\n", (void*)root);
+            return;
+        }
         inOrder(root->left);
 
         printf("Kartu: ");
@@ -245,7 +241,7 @@ KartuBTree* minValueNode(KartuBTree* node) {
 
 void deleteTree(KartuBTree *node) {
     if (node == NULL) return;
-    
+
     deleteTree(node->left);
     deleteTree(node->right);
     free(node);

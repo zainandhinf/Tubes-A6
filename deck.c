@@ -6,7 +6,7 @@ void InitDeck(Stack *deck) {
     ShuffleDeck(&kartu);
 
     if (ListEmpty(kartu)) {
-        printf("ERROR: Deck kartu gagal diinisialisasi\n");
+        printf("Deck kartu gagal diinisialisasi\n");
         return;
     }
 
@@ -83,22 +83,6 @@ void InitDiscard(Stack *deck, Stack *discard) {
     Pop(deck, &kartu);
     Push(discard, kartu);
 
-    printf("Kartu pertama: ");
-    switch (kartu.jenis) {
-        case ANGKA: printf("%d ", kartu.angka); break;
-        case SKIP: printf("SKIP "); break;
-        case REVERSE: printf("REVERSE "); break;
-        case DRAW2: printf("DRAW 2 "); break;
-        case WILD: printf("WILD "); break;
-        case WILD_DRAW4: printf("WILD DRAW 4 "); break;
-    }
-    switch (kartu.warna) {
-        case MERAH: printf("[MERAH]\n"); break;
-        case HIJAU: printf("[HIJAU]\n"); break;
-        case BIRU: printf("[BIRU]\n"); break;
-        case KUNING: printf("[KUNING]\n"); break;
-        case HITAM: printf("[HITAM]\n"); break;
-    }
 }
 
 infotype Top(Stack s) {
