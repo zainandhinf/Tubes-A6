@@ -1,5 +1,10 @@
 #ifndef KARTU_H
 #define KARTU_H
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef max
+#undef min
+
 #include "boolean.h"
 #include "uno.h"
 #include "sll.h"

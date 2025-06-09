@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include "uno.h"
 #include "queue.h"
+#include "player.h"
+#include "kartu.h"
 
 Queue q;
 bool pemainSudahDiinput = false;
@@ -73,7 +75,7 @@ void menuPlay()
         printf("||     MMMM  MMMM    EEE        NNNNN NNN    UUU   UUU     ||\n");
         printf("||     MMMMMMMMMM    EEEEEEE    NNNNNNNNN    UUU   UUU     ||\n");
         printf("||     MMM MM MMM    EEE        NNN NNNNN    UUUU UUUU     ||\n");
-        printf("||     MMM    MMM    EEEEEEE    NNN   NNN     OOOOOO       ||\n");
+        printf("||     MMM    MMM    EEEEEEE    NNN   NNN     UUUUUUU      ||\n");
         printf("||                                                         ||\n");
         printf("=============================================================\n");
         printf("\n                     Silahkan pilih                      \n\n");
