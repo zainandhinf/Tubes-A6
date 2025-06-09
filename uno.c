@@ -107,13 +107,13 @@ void menuPlay()
             if (pemainSudahDiinput)
             {
                 DeletePlayer(&head, &q);
+                head = NULL;
             }
-            // if (!pemainSudahDiinput)
-            // {
+
             initPlayer(&head, &q);
             InitGiliran(&q, head);
             pemainSudahDiinput = true;
-            // }
+            
             startGame(head, &q);
             break;
         case 3:

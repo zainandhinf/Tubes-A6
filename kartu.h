@@ -38,7 +38,7 @@ void BagiKartu(Stack *deck, Queue *head);
 // Membagikan kartu dari deck (stack) menjadi avltree (binarytree) ke pemain (queue) dan dihubungkan dengan pointer pada linkedlist pemain
 void TambahKartuKePemain(PemainList *pemain, Kartu kartu);
 // Menambahkan kartu ke tangan pemain
-void TampilkanKartuPemain(PemainList pemain);
+void TampilkanKartuPemain(PemainList *pemain);
 // Menampilkan kartu yang dimiliki pemain
 void printCard(Kartu k);
 // Mencetak representasi kartu ke layar (dengan newline)

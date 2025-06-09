@@ -132,24 +132,14 @@ boolean compareCards(Kartu a, Kartu b, CompareMode mode)
 /* Manajemen Gameplay */ 
 void BagiKartu(Stack *deck, Queue *head)
 {
-    PemainList *current = head->Front;
+    PemainList *current;
     Kartu kartu;
     int i;
 
-    while (current != NULL)
-    {
-        current->root = NULL;
-        current->info.jumlahKartu = 0;
-        current = current->next;
-    }
-
-    for (i = 0; i < 3; i++)
-    {
+    for (i = 0; i < 3; i++) {
         current = head->Front;
-        while (current != NULL)
-        {
-            if (!IsEmpty(*deck))
-            {
+        while (current != NULL) {
+            if (!IsEmpty(*deck)) {
                 Pop(deck, &kartu);
                 TambahKartuKePemain(current, kartu);
             }
@@ -160,16 +150,23 @@ void BagiKartu(Stack *deck, Queue *head)
 void TambahKartuKePemain(PemainList *pemain, Kartu kartu) {
     pemain->root = insert(pemain->root, kartu);
     if (pemain->root == NULL) {
-        printf("Gagal menambahkan kartu ke pemain!\n");
+        printf("Gagal menambahkan kartu ke pemain\n");
         return;
     }
     pemain->info.jumlahKartu++;
 }
-void TampilkanKartuPemain(PemainList pemain) {
-    printf("Jumlah kartu: %d\n", pemain.info.jumlahKartu);
-    if (pemain.info.jumlahKartu > 0) {
+
+void TampilkanKartuPemain(PemainList *pemain) {
+    printf("Jumlah kartu: %d\n", pemain->info.jumlahKartu);
+    
+    if (pemain->info.jumlahKartu > 0) {
         printf("Daftar kartu:\n");
-        inOrder(pemain.root);
+
+        if (pemain->root == NULL) {
+            printf("Root masih NULL — kartu belum dibagikan\n");
+        } else {
+            inOrder(pemain->root);  
+        }
     } else {
         printf("Pemain tidak memiliki kartu\n");
     }
@@ -689,6 +686,12 @@ void startGame(PemainList *players, Queue *turnQueue)
     }
     turnQueue->Rear = last;
 
+    PemainList *curr = players;
+    while (curr != NULL) {
+        curr->root = NULL;
+        curr->info.jumlahKartu = 0;
+        curr = curr->next;
+    }
     // printf("Total kartu setelah inisialisasi: %d\n", CountStack(deck));
     PrintPlayerList(players);
     BagiKartu(&deck, turnQueue);
@@ -708,7 +711,8 @@ void startGame(PemainList *players, Queue *turnQueue)
         printCard(Top(discard));
 
         printf("\nKartu di tangan:\n");
-        TampilkanKartuPemain(*currentPlayer);
+
+        TampilkanKartuPemain(currentPlayer);
 
         KartuNBTree *recommendations = buildRecommendations(Top(discard), currentPlayer->root);
 
@@ -730,7 +734,7 @@ void startGame(PemainList *players, Queue *turnQueue)
         else
         {
             printf("\nTidak ada kartu yang bisa dimainkan. Mengambil kartu dari deck...\n");
-            Sleep(3000);
+            Sleep(1000);
             DrawCard(&deck, currentPlayer);
         }
 

@@ -14,6 +14,7 @@
 #define Info(P) (P)->info
 #define Next(P) (P)->next
 #define First(L) (L).First
+#define Rear(L) (L).Rear
 
 typedef struct tElmtList *address;
 typedef struct tElmtList

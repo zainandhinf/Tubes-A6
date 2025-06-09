@@ -6,15 +6,8 @@
 #include "sll.h"
 #include "uno.h"
 // #include "player.h"
+
 #define NBElement 10
-
-typedef struct
-{
-    addresspemain Front;
-    addresspemain Rear;
-} ListQueue;
-
-typedef ListQueue Queue;
 
 /*Membuat sebuah queue baru dengan Front dan Rear NULL*/
 void CreateQueue(Queue *Q);
