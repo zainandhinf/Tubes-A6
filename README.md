@@ -62,8 +62,4 @@ Game UNO versi konsol sederhana yang dikembangkan dalam bahasa C sebagai latihan
 
 8. Jika ingin keluar dari program maka pilih `3` dan program akan keluar
 
----
-
-Silakan salin langsung ke README kamu!
-
  
