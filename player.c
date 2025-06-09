@@ -110,15 +110,12 @@ void DeletePlayer(PemainList **head, Queue *q){
     while (*head != NULL) {
         PemainList *temp = *head;
         *head = (*head)->next;
-        // Hapus tree kartu pemain jika perlu
         deleteTree(temp->root);
         free(temp);
     }
     
-    // Reset queue
     CreateQueue(q);
     
-    // Reset flag
     pemainSudahDiinput = false;
 }
 
