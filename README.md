@@ -21,32 +21,49 @@ Game UNO versi konsol sederhana yang dikembangkan dalam bahasa C sebagai latihan
 | Binary Tree     | Mengatur kartu di tangan pemain                          |
 | Non-Binary Tree | Mengatur rekomendasi dan kombo yang bisa dimainkan       |
 
+
 ## How To Play
-1.Menjalankan program 
- -Compile file .c ini untuk memulai permainan 
- -Program akan menghasilkan sebuah tampilan layar 
-2.Tampilan memunculkan tampilan pilihan  
- -Mulai 
- -Info
- -Keluar
-3.Jika ingin mengetahui info mengenai permainan maka pilih di menu awal adalah 2.info, jika sudah membaca info dalam permainan maka bisa mengetik ‘1’ untuk kembali ke menu sebelumnya 
-4.Jika ingin memulai permainan maka pilih 1. Mulai, setelah memilih mulai menampilkan pilihan: 
- -Menu pemain 
- -Mulai permainan 
- -Kembali ke menu sebelumnya
-5.Jika ingin melihat pemain maka memilih menu pemain, dan jika ingin kembali ke menu sebelumnya maka input angka 1 
-6.Jika ingin memulai permainan maka input 2. mulai permainan 
- -Saat sudah memilih mulai permainan akan menampilkan list giliran pemain 
- -Saat pemain 1 bermain maka, pemain yang lain tidak boleh melihat layar, kecuali pemain 1 
- -Pemain dapat melihat kartu yang ada di tangan dan yang kartu yang rekomendasikan 
- -pemain mennetukan kartu apa yang ingin di keluarkan sesua dengan kartu yang di rekomendasikan, jika ingin mengeluarkan kartu wild atau wild draw 4 , maka setelah memilih pemain harus mentukan warna apa yang ingin di keluarkan. 
- -Jika sudah mengeluarkan kartu maka pemain berganti dengan pemain selanjutnya, dan bergantian dengan pemain lain untuk melihat layar 
- -Jika pemain yang mengeluarkan skip maka, pemain selanjutnya terskip/di lewati. Jika pemain mengeluarkan kartu reverse maka arah giliran pemain berubah 
- -Jika pemain yang mengeluarkan kartu draw 2/4 maka pemain selanjutnya bertambah kartu dan terlewati  
- -Jika pemain yang mengeluarkan wild maka kartu dapat berubah sesuai dengan keinginan pemain. Dan pemain yang mengeluarkan wild draw 4 maka kartu dapat berubah warna dan pemain selanjutnya terkena efek skip dan bertambah kartu sebanyak 4. 
- -Jika pemain tidak mempunyai kartu yang sesuai dengan discard pile maka pemain tersebut mengambil kartu dari deck, dan permainan lanjut ke pemain selanjutnya 
- -Permainan ini terus berlanjut hingga salah satu pemain kartu yang di tangan sudah habis, maka pemain tersebut menang 
-7.Jika pemain sudah ada yang menang maka dapat pilihan untuk kembali ke menu sebelumnya sehingga jika ingin bermain lagi menginputkan 2 untuk mulai permainan. Jika tidak ingin melakukan bermain lagi maka dapat memilih 3 untuk kembali ke menu awal  
-8.Jika ingin keluar dari program maka memilih 3 dan akan keluar dari program 
+
+1. Menjalankan program
+
+* Compile file `.c` ini untuk memulai permainan
+* Program akan menghasilkan sebuah tampilan layar
+
+2. Tampilan memunculkan tampilan pilihan
+
+* Mulai
+* Info
+* Keluar
+
+3. Jika ingin mengetahui info mengenai permainan maka pilih di menu awal adalah `2. Info`, jika sudah membaca info dalam permainan maka bisa mengetik `1` untuk kembali ke menu sebelumnya
+
+4. Jika ingin memulai permainan maka pilih `1. Mulai`, setelah memilih mulai akan menampilkan pilihan:
+
+* Menu pemain
+* Mulai permainan
+* Kembali ke menu sebelumnya
+
+5. Jika ingin melihat pemain maka memilih menu pemain, dan jika ingin kembali ke menu sebelumnya maka input angka `1`
+
+6. Jika ingin memulai permainan maka input `2. Mulai Permainan`
+
+* Saat sudah memilih mulai permainan akan menampilkan list giliran pemain
+* Saat pemain 1 bermain maka pemain yang lain tidak boleh melihat layar, kecuali pemain 1
+* Pemain dapat melihat kartu yang ada di tangan dan kartu yang direkomendasikan
+* Pemain menentukan kartu apa yang ingin dikeluarkan sesuai dengan kartu yang direkomendasikan. Jika ingin mengeluarkan kartu Wild atau Wild Draw 4, maka setelah memilih pemain harus menentukan warna apa yang ingin dikeluarkan
+* Jika sudah mengeluarkan kartu maka pemain berganti dengan pemain selanjutnya, dan bergantian dengan pemain lain untuk melihat layar
+* Jika pemain mengeluarkan kartu Skip maka pemain selanjutnya terskip/dilewati. Jika pemain mengeluarkan kartu Reverse maka arah giliran pemain berubah
+* Jika pemain mengeluarkan kartu Draw 2/4 maka pemain selanjutnya mendapat tambahan kartu dan dilewati
+* Jika pemain mengeluarkan kartu Wild maka kartu dapat berubah sesuai dengan keinginan pemain. Dan jika pemain mengeluarkan Wild Draw 4 maka kartu dapat berubah warna dan pemain selanjutnya terkena efek Skip dan mendapat tambahan 4 kartu
+* Jika pemain tidak mempunyai kartu yang sesuai dengan discard pile maka pemain tersebut mengambil kartu dari deck, dan permainan lanjut ke pemain selanjutnya
+* Permainan ini terus berlanjut hingga salah satu pemain kehabisan kartu di tangan, maka pemain tersebut menang
+
+7. Jika pemain sudah ada yang menang maka akan muncul pilihan untuk kembali ke menu sebelumnya, sehingga jika ingin bermain lagi dapat menginput `2` untuk mulai permainan. Jika tidak ingin bermain lagi maka dapat memilih `3` untuk kembali ke menu awal
+
+8. Jika ingin keluar dari program maka pilih `3` dan program akan keluar
+
+---
+
+Silakan salin langsung ke README kamu!
 
  
