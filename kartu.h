@@ -62,17 +62,17 @@ void deleteNBTree(KartuNBTree* node);
 
 
 /* Rekomendasi Kartu Linked List */
-void buildPaths(KartuNBTree* node, RecommendationList** paths);
+void buildList(KartuNBTree* node, RecommendationList**list);
 // Membangun linked list rekomendasi dari non bonary tree rekomendasi
-void printAllPaths(RecommendationList* paths);
+void printAllList(RecommendationList* list);
 // Mencetak semua linked list rekomendasi yang mungkin
 void printRecommendationLists(KartuNBTree *root);
 // Mencetak semua rekomendasi list
-void addPathFromLeaf(KartuNBTree* leaf, RecommendationList** paths);
+void addListFromLeaf(KartuNBTree* leaf, RecommendationList**list);
 // Menambahkan linkedlist baru dari leaf node tree
-int chooseRecommendation(RecommendationList* paths);
+int chooseRecommendation(RecommendationList* list);
 // Meminta input pemain untuk memilih rekomendasi
-RecommendationList* getSelectedPath(RecommendationList* paths, int choice);
+RecommendationList* getSelectedList(RecommendationList* list, int choice);
 // Mengambil linked list rekomendasi berdasarkan pilihan pemain
 void playSelectedRecommendation(Stack* discardDeck, PemainList* player, KartuNBTree* recommendations);
 // Memproses rekomendasi yang dipilih (memindahkan kartu ke discard pile)
@@ -86,8 +86,17 @@ void handleWildCard(Stack *discardDeck, Kartu playedCard);
 void handleCardEffect(Stack *discardDeck, Queue *turnQueue, PemainList *currentPlayer, Stack *deck);
 // Handle kartu efek
 
+
+/* Gameplay */
 void startGame(PemainList *players, Queue *turnQueue);
 // Inisialisasi permainan dan gameplay
 void checkWinCondition(Queue *turnQueue, bool *gameRunning);
 // Handle cek kondisi menang dengan cek jumlah kartu pemain
+
+
+/* Print Lain Lain */
+void printSpaces(int count);
+void printBTRecursive(KartuBTree *node, int depth, bool isLeft);
+void printBinaryTree(KartuBTree *root);
+
 #endif

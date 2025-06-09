@@ -196,11 +196,9 @@ KartuBTree* deleteNode(KartuBTree* root, Kartu kartu) {
     } else if (cmp > 0) {
         root->right = deleteNode(root->right, kartu);
     } else {
-        // Node dengan hanya satu anak atau tidak ada anak
         if ((root->left == NULL) || (root->right == NULL)) {
             KartuBTree* temp = root->left ? root->left : root->right;
             
-            // Tidak ada anak
             if (temp == NULL) {
                 temp = root;
                 root = NULL;
@@ -210,24 +208,17 @@ KartuBTree* deleteNode(KartuBTree* root, Kartu kartu) {
             }
             free(temp);
         } else {
-            // Node dengan dua anak
             KartuBTree* temp = minValueNode(root->right);
             root->info = temp->info;
             root->right = deleteNode(root->right, temp->info);
         }
     }
     
-    // Jika tree hanya memiliki satu node
     if (root == NULL) return root;
     
-    // Update height
     root->height = 1 + max(height(root->left), height(root->right));
     
-    // Lakukan balancing
     int balance = getBalance(root);
-    
-    // Kasus-kasus unbalanced
-    // [Implementasi balancing sama seperti sebelumnya...]
     
     return root;
 }

@@ -103,6 +103,7 @@ void menuPlay()
             system("cls");
             printf("Memulai permainan UNO...\n");
             printf("\n");
+            printf("Inisialisasi Pemain...\n");
             Sleep(1000);
             if (pemainSudahDiinput)
             {
