@@ -80,7 +80,6 @@ void InitKartu(List *kartu)
     }
 }
 
-
 /* Komparasi Kartu */
 boolean compareCards(Kartu a, Kartu b, CompareMode mode)
 {
@@ -128,8 +127,7 @@ boolean compareCards(Kartu a, Kartu b, CompareMode mode)
     }
 }
 
-
-/* Manajemen Gameplay */ 
+/* Manajemen Gameplay */
 void BagiKartu(Stack *deck, Queue *head)
 {
     PemainList *current = head->Front;
@@ -143,7 +141,7 @@ void BagiKartu(Stack *deck, Queue *head)
         current = current->next;
     }
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 7; i++)
     {
         current = head->Front;
         while (current != NULL)
@@ -157,20 +155,26 @@ void BagiKartu(Stack *deck, Queue *head)
         }
     }
 }
-void TambahKartuKePemain(PemainList *pemain, Kartu kartu) {
+void TambahKartuKePemain(PemainList *pemain, Kartu kartu)
+{
     pemain->root = insert(pemain->root, kartu);
-    if (pemain->root == NULL) {
+    if (pemain->root == NULL)
+    {
         printf("Gagal menambahkan kartu ke pemain!\n");
         return;
     }
     pemain->info.jumlahKartu++;
 }
-void TampilkanKartuPemain(PemainList pemain) {
+void TampilkanKartuPemain(PemainList pemain)
+{
     printf("Jumlah kartu: %d\n", pemain.info.jumlahKartu);
-    if (pemain.info.jumlahKartu > 0) {
+    if (pemain.info.jumlahKartu > 0)
+    {
         printf("Daftar kartu:\n");
         inOrder(pemain.root);
-    } else {
+    }
+    else
+    {
         printf("Pemain tidak memiliki kartu\n");
     }
 }
@@ -262,7 +266,6 @@ void printCardNoNewline(Kartu k)
     }
 }
 
-
 /* Rekomendasi Kartu Non Binary Tree */
 KartuNBTree *buildRecommendations(Kartu topDiscard, KartuBTree *playerCards)
 {
@@ -353,7 +356,6 @@ void deleteNBTree(KartuNBTree *node)
     deleteNBTree(node->nextbrother);
     free(node);
 }
-
 
 /* Rekomendasi Kartu Linked List */
 void buildPaths(KartuNBTree *node, RecommendationList **paths)
@@ -505,9 +507,12 @@ void playSelectedRecommendation(Stack *discardDeck, PemainList *player, KartuNBT
     KartuList *current = selectedPath->head;
     while (current != NULL)
     {
-        if (current->card.jenis == WILD || current->card.jenis == WILD_DRAW4) {
+        if (current->card.jenis == WILD || current->card.jenis == WILD_DRAW4)
+        {
             handleWildCard(discardDeck, current->card);
-        } else {
+        }
+        else
+        {
             PushDiscard(discardDeck, current->card);
         }
         player->root = deleteNode(player->root, current->card);
@@ -530,7 +535,6 @@ void playSelectedRecommendation(Stack *discardDeck, PemainList *player, KartuNBT
         currentPath = nextPath;
     }
 }
-
 
 /*  Efek Kartu Spesial */
 void kartuSkip(Queue *q, int jumlahPemain, int skipCount)
@@ -569,16 +573,16 @@ void kartuReverse(Queue *q)
     // addresspemain prev = NULL;
     // addresspemain curr = q->Front;
     // addresspemain next = NULL;
-    
+
     // q->Rear = q->Front;
-    
+
     // while (curr != NULL) {
     //     next = curr->next;
     //     curr->next = prev;
     //     prev = curr;
     //     curr = next;
     // }
-    
+
     // q->Front = prev;
 
     // while (q->Front->info.nama != current.nama) {
@@ -587,7 +591,7 @@ void kartuReverse(Queue *q)
     //     EnQueue(q, temp);
     // }
     // // printf("Antrian pemain telah dibalik.\n");
-     if (is_Empty(*q))
+    if (is_Empty(*q))
     {
         printf("Tidak ada pemain dalam antrian.\n");
         return;
@@ -610,8 +614,10 @@ void kartuReverse(Queue *q)
     q->Front = prev;
     printf("Antrian pemain telah dibalik.\n");
 }
-void handleWildCard(Stack *discardDeck, Kartu playedCard) {
-    if (playedCard.jenis == WILD || playedCard.jenis == WILD_DRAW4) {
+void handleWildCard(Stack *discardDeck, Kartu playedCard)
+{
+    if (playedCard.jenis == WILD || playedCard.jenis == WILD_DRAW4)
+    {
         printf("\nAnda memainkan kartu ");
         printCardNoNewline(playedCard);
         printf(". Pilih warna baru:\n");
@@ -622,23 +628,34 @@ void handleWildCard(Stack *discardDeck, Kartu playedCard) {
         printf("Pilihan (1-4): ");
 
         int choice;
-        do {
+        do
+        {
             scanf("%d", &choice);
-            if (choice < 1 || choice > 4) {
+            if (choice < 1 || choice > 4)
+            {
                 printf("Pilihan tidak valid. Masukkan angka 1-4: ");
             }
         } while (choice < 1 || choice > 4);
 
-        switch (choice) {
-            case 1: playedCard.warna = MERAH; break;
-            case 2: playedCard.warna = HIJAU; break;
-            case 3: playedCard.warna = BIRU; break;
-            case 4: playedCard.warna = KUNING; break;
+        switch (choice)
+        {
+        case 1:
+            playedCard.warna = MERAH;
+            break;
+        case 2:
+            playedCard.warna = HIJAU;
+            break;
+        case 3:
+            playedCard.warna = BIRU;
+            break;
+        case 4:
+            playedCard.warna = KUNING;
+            break;
         }
 
         printf("Warna dipilih: ");
         printCard(playedCard);
-        
+
         PushDiscard(discardDeck, playedCard);
     }
 }
@@ -725,6 +742,15 @@ void startGame(PemainList *players, Queue *turnQueue)
                 printCard(Top(discard));
             }
 
+            checkWinCondition(turnQueue, &gameRunning);
+            if (!gameRunning)
+            {
+                printf("\n==================================\n");
+                printf("%s menang!\n", turnQueue->Front->info.nama);
+                printf("==================================\n");
+                backToMenu();
+            }
+
             handleCardEffect(&discard, turnQueue, currentPlayer, &deck);
         }
         else
@@ -734,22 +760,14 @@ void startGame(PemainList *players, Queue *turnQueue)
             DrawCard(&deck, currentPlayer);
         }
 
-        checkWinCondition(turnQueue, &gameRunning);
-        if (!gameRunning)
-        {
-            printf("\n==================================\n");
-            printf("%s menang!\n", turnQueue->Front->info.nama);
-            printf("==================================\n");
-            backToMenu();
-        }
-
         deleteNBTree(recommendations);
 
         if (gameRunning)
         {
             printf("\nTekan Enter untuk lanjut ke pemain berikutnya...");
-            while (getchar() != '\n'); 
-            getchar();  
+            while (getchar() != '\n')
+                ;
+            getchar();
             NextGiliran(turnQueue);
         }
         system("cls");

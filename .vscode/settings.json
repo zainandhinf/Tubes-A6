@@ -6,7 +6,8 @@
     "BOOLEAN.H": "cpp",
     "typeinfo": "c",
     "stack.h": "c",
-    "uno.h": "c"
+    "uno.h": "c",
+    "kartu.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

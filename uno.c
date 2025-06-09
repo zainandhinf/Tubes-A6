@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "uno.h"
 #include "queue.h"
+#include "kartu.h"
 
 Queue q;
 bool pemainSudahDiinput = false;
@@ -106,12 +107,12 @@ void menuPlay()
             {
                 DeletePlayer(&head, &q);
             }
-            // if (!pemainSudahDiinput)
-            // {
-            initPlayer(&head, &q);
-            InitGiliran(&q, head);
-            pemainSudahDiinput = true;
-            // }
+            if (!pemainSudahDiinput)
+            {
+                initPlayer(&head, &q);
+                InitGiliran(&q, head);
+                pemainSudahDiinput = true;
+            }
             startGame(head, &q);
             break;
         case 3:
